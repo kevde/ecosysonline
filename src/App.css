@@ -1,0 +1,374 @@
+.App {
+    text-align: center;
+}
+
+.App-logo {
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px;
+}
+
+.App-header {
+    background-color: #222;
+    height: 150px;
+    padding: 20px;
+    color: white;
+}
+
+.App-title {
+    font-size: 1.5em;
+}
+
+.App-intro {
+    font-size: large;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.ant-layout-header {
+    background: aliceblue;
+}
+
+.ant-avatar-icon {
+    margin: 10px;
+    right: 0px;
+}
+
+.right-sidebar.ant-layout-sider {
+    background-color: white;
+}
+
+.ant-modal-header {
+    text-align: center;
+    color: white!important;
+    background-color: darkgray;
+}
+
+input.ant-input {
+    margin: 0.5rem auto;
+}
+
+.ant-card-head-title {
+    padding: 1rem autp;
+}
+
+.logo {
+    padding: 1em;
+}
+
+.persona {
+    margin: 2rem auto;
+}
+
+.goal-setting>.row {
+    margin: 10em;
+}
+
+.goal-setting .steps-content {
+    margin: 5rem auto;
+}
+
+.avatar-photo {
+    border: 1px dashed #d9d9d9;
+    width: 15em;
+    height: 15em;
+    border-radius: 100%;
+    text-align: 'center';
+    vertical-align: middle;
+    text-align: center;
+    display: table;
+}
+
+.avatar-photo img {
+    padding: 1em;
+    width: 15em;
+    height: 15em;
+    border-radius: 100%;
+}
+
+.avatar-photo>div {
+    background-color: #d9d9d9;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    width: 100%;
+}
+
+.ant-upload-text {
+    text-align: center;
+    width: 100%;
+}
+
+.avatar-box {
+    display: inline-block;
+    text-align: right;
+    vertical-align: middle;
+}
+
+.avatar {
+    display: flex;
+}
+
+.canvas-container {
+    width: 100% !important;
+    height: auto !important;
+    background-color: red;
+    position: inherit !important;
+}
+
+.canvas-container>canvas {
+    width: 100% !important;
+    height: auto !important;
+    display: inline-block;
+    position: inherit !important;
+}
+
+.canvas-container>canvas.upper-canvas {
+    display: none !important;
+}
+
+.addPersona>.ant-card-body {
+    margin: 30vh;
+    text-align: center;
+}
+
+.content .row {
+    margin: 1rem auto;
+}
+
+.display-initial>div {
+    display: initial;
+}
+
+.display-initial>div>.ant-card {
+    height: 100%;
+}
+
+.login-panel {
+    min-height: 100vh;
+    background: linear-gradient(#EEE 0%, white 18%);
+}
+
+.login-panel-col {
+    padding: 5vw;
+    min-height: 100vh;
+        background-color: #f0f3f4;
+}
+
+.row .ant-card {
+    min-height: 100%;
+}
+
+blockquote {
+    background: #f9f9f9;
+    border-left: 10px solid #ccc;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+    quotes: "\201C""\201D""\2018""\2019";
+}
+
+blockquote:before {
+    color: #ccc;
+    content: open-quote;
+    font-size: 4em;
+    line-height: 0.1em;
+    margin-right: 0.25em;
+    vertical-align: -0.4em;
+}
+
+blockquote p {
+    display: inline;
+}
+
+.ant-card-body {
+    min-height: 10vh;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.login-bg {
+    min-height: 100vh;
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+}
+
+.login-panel-col .ant-input {
+    background-color: #111d2d;
+    color: white;
+    border-radius: 5rem;
+    box-shadow: 0.5rem 0.5rem white;
+}
+
+.login-form .anticon {
+    color: white !important;
+}
+
+.login-form button {
+    color: #fff;
+    background-color: white;
+    border-color: #1890ff;
+    width: 100%;
+    border-radius: 5rem;
+    color: #111d2d;
+}
+
+.login-panel h1 {
+    color: #096dd9;
+    text-align: center;
+    text-shadow: 2px 3px 4px #ddd;
+}
+
+.goal-card .ant-card-body {
+    position: absolute;
+    top: 0px;
+    min-height: calc(100% - 48px);
+    width: 100%;
+    vertical-align: middle;
+    padding: 2rem;
+}
+
+.goal-card .ant-card-body > div {
+    height: calc(100% - 4rem);
+    background-color: rgba(255,255,255,0.9);
+    display: flex;
+    width: calc(100% - 4rem);
+    position: absolute;
+    align-items: center;
+    padding: 0.5rem;
+    box-shadow: 10px 10px 10px;
+}
+
+.goal-card .ant-card-body > div {
+    background: #f9f9f9;
+    border-left: 10px solid #ccc;
+    padding: 0.5em 10px;
+    quotes: "\201C""\201D""\2018""\2019";
+}
+
+.goal-card .ant-card-body > div:before {
+    color: #ccc;
+    content: open-quote;
+    font-size: 4em;
+    line-height: 0.1em;
+    margin-right: 0.25em;
+    vertical-align: -0.4em;
+}
+
+.goal-card .ant-card-body > div p {
+    display: inline;
+}
+
+i.anticon {
+    text-align: center;
+}
+
+.ant-avatar-icon {
+    display: block;
+}
+
+.add-goal .ant-card-body > div {
+    width: 100%;
+}
+
+.add-goal .ant-card-body {
+    min-height: 100%;
+    vertical-align: middle;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.content [class^="col-"] {
+    margin-top: 1rem;
+}
+
+.ant-card-meta {
+    width: 100%;
+    overflow: auto;
+}
+
+.journey-card {
+    border: 0.5rem solid;
+    width: 60%;
+    height: 60%;
+    border-radius: 3rem;
+    padding: 2rem;
+    background-color: white;
+}
+
+.journey-card .anticon {
+    font-size: 5rem;
+}
+
+.journey-card h1 {
+    font-size: 2rem;
+}
+
+.journey-card-next-step {
+    /* background-color: yellow; */
+    bottom: 4rem;
+    position: absolute;
+    display: flex;
+    align-content: center;
+    font-size: 5rem;
+    left: calc(50% - 2rem);
+}
+
+.journey-card-left-step {
+    position: absolute;
+    left: 12%;
+    font-size: 5rem;
+    top: calc(50% - 2rem);
+}
+
+.journey-canvas .konvajs-content {
+    width: 100% !important;
+    height:  auto !important;
+}
+
+.journey-canvas .konvajs-content canvas {
+    width: 100% !important;
+    height:  auto !important;
+}
+
+.journey-card-sheet {
+    padding-top: calc(1400 / 1100 * 100%);
+    position: relative;
+    width: 100%;
+    height: auto;
+    background-color: white;
+}
+
+.journey-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.journey-card-details {
+    padding: 1rem;
+}
+
+.journey-card.welcome .title {
+    font-size: 2rem;
+    line-height: 3rem;
+    padding-top: 2rem;
+}
+
+.journey-card.success {
+    font-size: 2rem;
+    line-height: 3rem;
+    padding-top: 2rem;
+}

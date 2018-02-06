@@ -22,6 +22,7 @@ import User from 'core/User';
 import Goal from 'core/Goal';
 import 'antd/dist/antd.css';
 import 'react-grid-layout/css/styles.css';
+import MediaQuery from 'react-responsive';
 import './App.css';
 const { Content } = Layout;
 
@@ -70,8 +71,9 @@ class App extends Component {
                         <Route exact={true} path="/"  render={(props) => <LoginForm container={this.state} crudService={this.userCrudService} onUpdate={(user) => this.reRenderUser(user)}/> } />
                         <Route exact={true} path="/register"  render={(props) => <RegisterForm crudService={this.userCrudService} onUpdate={(user) => this.reRenderUser(user)} /> } />
                     </Col>
-                    <Col lg={9} style={this.backgroundJourney} className="login-bg">
-                    </Col>
+                    <MediaQuery query="(min-width: 768px)">
+                        <Col lg={9} style={this.backgroundJourney} className="login-bg" />
+                    </MediaQuery>
                 </Row>
             </Layout>
         );

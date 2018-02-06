@@ -41,7 +41,10 @@ export default class GoalList extends Component {
     getDefaultGoal(goals, goalId) {
         const potentialGoal = _.find(goals, (goal) => goalId === goal.id);
         const defaultGoal = (potentialGoal) ? potentialGoal : this.state.currentGoal ? this.state.currentGoal : _.head(goals);
-        defaultGoal.enabled = true;
+        if (defaultGoal) {
+            defaultGoal.enabled = true;
+            this.onUpdate(defaultGoal);
+        }
         return defaultGoal;
     }
 
@@ -80,7 +83,7 @@ export default class GoalList extends Component {
     render() {
         return (
             <Spin spinning={this.state.loading}>
-                <Row>
+                <Row center="md">
                     {this.state.goals.map(goal => this.renderGoal(goal))}
                     {this.renderAddGoal()}
                 </Row>

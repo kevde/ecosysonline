@@ -31,17 +31,26 @@
     }
 }
 
-.ant-layout-header {
-    background: aliceblue;
-}
-
 .ant-avatar-icon {
     margin: 10px;
     right: 0px;
 }
 
-.right-sidebar.ant-layout-sider {
-    background-color: white;
+.ant-layout-sider {
+    background-color: #1c2b36;
+    min-height: 100vh;
+}
+
+.ant-menu {
+    background: none;
+}
+
+.ant-menu a {
+    color: white;
+}
+
+.ant-menu-item-selected {
+    background-color: #00aeff !important;
 }
 
 .ant-modal-header {
@@ -105,16 +114,6 @@ input.ant-input {
     width: 100%;
 }
 
-.avatar-box {
-    display: inline-block;
-    text-align: right;
-    vertical-align: middle;
-}
-
-.avatar {
-    display: flex;
-}
-
 .canvas-container {
     width: 100% !important;
     height: auto !important;
@@ -158,7 +157,7 @@ input.ant-input {
 .login-panel-col {
     padding: 5vw;
     min-height: 100vh;
-        background-color: #f0f3f4;
+    background-color: #f0f3f4;
 }
 
 .row .ant-card {
@@ -235,9 +234,9 @@ blockquote p {
     padding: 2rem;
 }
 
-.goal-card .ant-card-body > div {
+.goal-card .ant-card-body>div {
     height: calc(100% - 4rem);
-    background-color: rgba(255,255,255,0.9);
+    background-color: rgba(255, 255, 255, 0.9);
     display: flex;
     width: calc(100% - 4rem);
     position: absolute;
@@ -246,14 +245,14 @@ blockquote p {
     box-shadow: 10px 10px 10px;
 }
 
-.goal-card .ant-card-body > div {
+.goal-card .ant-card-body>div {
     background: #f9f9f9;
     border-left: 10px solid #ccc;
     padding: 0.5em 10px;
     quotes: "\201C""\201D""\2018""\2019";
 }
 
-.goal-card .ant-card-body > div:before {
+.goal-card .ant-card-body>div:before {
     color: #ccc;
     content: open-quote;
     font-size: 4em;
@@ -262,7 +261,7 @@ blockquote p {
     vertical-align: -0.4em;
 }
 
-.goal-card .ant-card-body > div p {
+.goal-card .ant-card-body>div p {
     display: inline;
 }
 
@@ -274,7 +273,7 @@ i.anticon {
     display: block;
 }
 
-.add-goal .ant-card-body > div {
+.add-goal .ant-card-body>div {
     width: 100%;
 }
 
@@ -288,6 +287,13 @@ i.anticon {
     align-items: center;
 }
 
+.add-goal {
+    min-height: 255px !important;
+    border: 1px dotted gray;
+    font-size: large;
+    border-radius: 3rem;
+}
+
 .content [class^="col-"] {
     margin-top: 1rem;
 }
@@ -297,48 +303,14 @@ i.anticon {
     overflow: auto;
 }
 
-.journey-card {
-    border: 0.5rem solid;
-    width: 60%;
-    height: 60%;
-    border-radius: 3rem;
-    padding: 2rem;
-    background-color: white;
-}
-
-.journey-card .anticon {
-    font-size: 5rem;
-}
-
-.journey-card h1 {
-    font-size: 2rem;
-}
-
-.journey-card-next-step {
-    /* background-color: yellow; */
-    bottom: 4rem;
-    position: absolute;
-    display: flex;
-    align-content: center;
-    font-size: 5rem;
-    left: calc(50% - 2rem);
-}
-
-.journey-card-left-step {
-    position: absolute;
-    left: 12%;
-    font-size: 5rem;
-    top: calc(50% - 2rem);
-}
-
 .journey-canvas .konvajs-content {
     width: 100% !important;
-    height:  auto !important;
+    height: auto !important;
 }
 
 .journey-canvas .konvajs-content canvas {
     width: 100% !important;
-    height:  auto !important;
+    height: auto !important;
 }
 
 .journey-card-sheet {
@@ -357,18 +329,176 @@ i.anticon {
     bottom: 0;
 }
 
-.journey-card-details {
-    padding: 1rem;
+.ant-layout-header {
+    padding: 0;
+    background: aliceblue;
+    line-height: initial !important;
 }
 
-.journey-card.welcome .title {
-    font-size: 2rem;
-    line-height: 3rem;
-    padding-top: 2rem;
+.trigger-button .anticon {
+    font-size: 24px;
+    padding: 10px;
 }
 
-.journey-card.success {
-    font-size: 2rem;
-    line-height: 3rem;
-    padding-top: 2rem;
+.ant-layout-content {
+    min-height: calc(100vh - 64px);
+}
+
+
+/*md*/
+
+@media only screen and (min-width: 768px) {
+    .avatar-box {
+        display: inline-block;
+        text-align: right;
+        vertical-align: middle;
+    }
+
+    .journey-card {
+        border: 0.5rem solid;
+        width: 60%;
+        height: 60%;
+        border-radius: 3rem;
+        padding: 2rem;
+        background-color: white;
+    }
+
+    .journey-card-container {
+        overflow: auto;
+    }
+
+    .journey-card .anticon {
+        font-size: 5rem;
+    }
+
+    .journey-card h1 {
+        font-size: 2rem;
+    }
+
+    .journey-card-next-step {
+        /* background-color: yellow; */
+        bottom: 4rem;
+        position: absolute;
+        display: flex;
+        align-content: center;
+        font-size: 5rem;
+        left: calc(50% - 2rem);
+    }
+
+    .journey-card-left-step {
+        position: absolute;
+        left: 12%;
+        font-size: 5rem;
+        top: calc(50% - 2rem);
+    }
+
+    .journey-card-details {
+        padding: 1rem;
+    }
+
+    .journey-card.welcome .title {
+        font-size: 2rem;
+        line-height: 3rem;
+        padding-top: 2rem;
+    }
+
+    .journey-card.success {
+        font-size: 1.5rem;
+        line-height: 120%;
+        padding-top: 2rem;
+    }
+
+    .content-header-title {
+        padding: 10px;
+    }
+}
+
+
+/*xs*/
+
+@media only screen and (max-width: 768px) {
+    .avatar-box {
+        display: inline-block;
+        text-align: right;
+        vertical-align: middle;
+        width: 100%;
+    }
+
+    .avatar-box .avatar {
+        display: inherit !important;
+    }
+
+    .add-goal {
+        min-height: 50vh !important;
+    }
+
+    .ant-layout-header {
+        padding: 0;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .journey-card {
+        border: 0.5rem solid;
+        width: 95%;
+        height: 95%;
+        border-radius: 3rem;
+        padding: 2rem;
+        line-height: 110%;
+        background-color: white;
+    }
+
+    .journey-card-container {
+        overflow: auto;
+    }
+
+    .journey-card .anticon {
+        font-size: 2rem;
+    }
+
+    .journey-card h1 {
+        font-size: 2rem;
+    }
+
+    .journey-card-next-step {
+        bottom: 2rem;
+        position: absolute;
+        display: flex;
+        align-content: center;
+        font-size: 2rem;
+        left: calc(50% - 1rem);
+    }
+
+    .journey-card-left-step {
+        position: absolute;
+        left: 8%;
+        font-size: 2rem;
+        top: calc(50% - 1rem);
+    }
+
+    .journey-card-details {
+        padding: 1rem;
+        overflow: auto;
+        height: 50vh;
+    }
+
+    .journey-card.welcome .title {
+        font-size: 2rem;
+        line-height: 3rem;
+        padding-top: 2rem;
+    }
+
+    .journey-card.success {
+        font-size: 1.5rem;
+        line-height: 2rem;
+        padding-top: 1.5rem;
+    }
+
+    .content-header-title {
+        background: linear-gradient(180deg, #fff 80%, rgba(255, 255, 255, 0));
+        padding: 10px;
+    }
+}
+
+.content-title-header {
+    padding: 10px;
 }

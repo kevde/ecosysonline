@@ -23,24 +23,24 @@ class Sidebar extends Component {
     render() {
         return (
             <div>
+            <Affix>
               <MediaQuery query="(max-width: 768px)">
                 <Sider
                 collapsible
                 trigger={null}
                 collapsed={this.state.collapsed}
-                collapsedWidth="0"
-                style={{"minHeight": "100vh"}}>
+                collapsedWidth="0">
                   {this.renderContents()}
                 </Sider>
               </MediaQuery>
               <MediaQuery query="(min-width: 768px)">
                 <Sider
                 collapsed={false}
-                collapsedWidth="0"
-                style={{"minHeight": "100vh"}}>
+                collapsedWidth="0">
                   {this.renderContents()}
                 </Sider>
               </MediaQuery>
+            </Affix>
             </div>
         );
     }
@@ -49,33 +49,35 @@ class Sidebar extends Component {
     renderContents() {
         const goalId = this.state.goalId;
         return (
-            <Affix>
-              <div className="logo">
-                <img src={`${process.env.PUBLIC_URL}/logo.png`} width="100%"/>
+              <div>
+                <div className="logo">
+                <MediaQuery query="(min-width: 768px)">
+                  <img src={`${process.env.PUBLIC_URL}/logo.png`} width="100%"/>
+                </MediaQuery>
+                </div>
+                <Menu theme="dark" defaultSelectedKeys={['video']} mode="inline">
+                  <Menu.Item key="start">
+                    <Link to={`/`}>
+                    <Icon type="right" />
+                    <span>Start</span></Link>
+                  </Menu.Item>
+                  {(goalId) ? 
+                    this.renderForecastMenu(goalId)
+                     : ""}
+                  {(goalId) ?
+                  <Menu.Item key="assumptions">
+                    <Icon type="usergroup-add" />
+                    <span><Link to={`/assumptions/${goalId}`}>Fundamental Assumptions</Link></span>
+                  </Menu.Item>
+                  : "" }
+                  {(goalId) ? 
+                  <Menu.Item key="journeys">
+                    <Icon type="car" />
+                    <span><Link to={`/journeys/${goalId}`}>Buyer's Journey</Link></span>
+                  </Menu.Item>
+                  : "" }
+                </Menu>
               </div>
-              <Menu theme="dark" defaultSelectedKeys={['video']} mode="inline">
-                <Menu.Item key="start">
-                  <Link to={`/`}>
-                  <Icon type="right" />
-                  <span>Start</span></Link>
-                </Menu.Item>
-                {(goalId) ? 
-                  this.renderForecastMenu(goalId)
-                   : ""}
-                {(goalId) ?
-                <Menu.Item key="assumptions">
-                  <Icon type="usergroup-add" />
-                  <span><Link to={`/assumptions/${goalId}`}>Fundamental Assumptions</Link></span>
-                </Menu.Item>
-                : "" }
-                {(goalId) ? 
-                <Menu.Item key="journeys">
-                  <Icon type="car" />
-                  <span><Link to={`/journeys/${goalId}`}>Buyer's Journey</Link></span>
-                </Menu.Item>
-                : "" }
-              </Menu>
-            </Affix>
         );
     }
 

@@ -78,10 +78,10 @@ class ONumericSlider extends React.Component {
         return (
             <Row>
                 {(this.props.label) ? (<h3>{this.props.label}</h3>) : "" }
-                <Col xs={10}>
+                <Col xs={8}>
 		            <Slider {...this.props} onChange={this.onSliderChange.bind(this)} value={_.get(this.state, `container.${this.props.fieldName}`, "")} width='75%'/>
                 </Col>
-                <Col xs={2}>
+                <Col xs={4}>
 	                <Input
 	                  width='20%'
 	                  {...this.props}

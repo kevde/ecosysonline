@@ -17,19 +17,30 @@ class MainHeader extends Component {
                 <Header>
                   <Row>
                     <Col xs={12}>
-                      <Row end="xs" middle="xs">
                       <MediaQuery query="(max-width: 768px)">
-                        <Col xs={12}>
-                            <Icon type="bars" ref="trigger" onClick={this.onMenuClick.bind(this)} />
+                      <Row middle="xs" between="xs">
+                        <Col xs={2} start="xs">
+                            <div className="trigger-button">
+                                <Icon type="bars" ref="trigger" onClick={this.onMenuClick.bind(this)} />
+                            </div>
+                        </Col>
+                        <Col xs={8} center="xs">
+                            <Link to="/">
+                                <img src={`${process.env.PUBLIC_URL}/logo.png`} width="100%"/>
+                            </Link>
+                        </Col>
+                        <Col xs={2}  end="xs">
                             <span className="avatar-box">
                                 <Popover placement="bottomRight" title={this.props.user.username} content={<Button onClick={this.onLogout.bind(this)}>Logout</Button>} trigger="click">
                                     {this.getAvatar()}
                                 </Popover>
                             </span>
                         </Col>
+                      </Row>
                       </MediaQuery>
                       <MediaQuery query="(min-width: 768px)">
-                        <Col xs={2} xsOffset={10} middle="xs">
+                      <Row middle="xs" end="xs">
+                        <Col xs={3} xsOffset={9} middle="xs">
                             <span>
                                 Hi {this.props.user.username}!&nbsp;&nbsp;&nbsp;
                             </span>
@@ -39,8 +50,8 @@ class MainHeader extends Component {
                                 </Popover>
                             </span>
                         </Col>
-                      </MediaQuery>
                       </Row>
+                      </MediaQuery>
                     </Col>
                   </Row>
                 </Header>

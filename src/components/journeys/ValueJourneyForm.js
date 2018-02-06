@@ -16,13 +16,13 @@ export default class ValueJourneyForm extends React.Component {
         this.setState({ journey: nextProps.journey });
     }
 
-    componentDidMount() {
-        window.addEventListener('wheel', this.handleScroll);
-    }
+    // componentDidMount() {
+    //     window.addEventListener('wheel', this.handleScroll);
+    // }
 
-    componentWillUnmount() {
-        window.removeEventListener('wheel', this.handleScroll);
-    }
+    // componentWillUnmount() {
+    //     window.removeEventListener('wheel', this.handleScroll);
+    // }
 
     onUpdate(journey) {
         if (this.props.onUpdate) {
@@ -42,7 +42,6 @@ export default class ValueJourneyForm extends React.Component {
         const mainStyle = {
             lineHeight: '10px',
             position: 'initial',
-            overflow: 'hidden',
             width: '100%',
             height: '100vh'
         }
@@ -66,7 +65,7 @@ export default class ValueJourneyForm extends React.Component {
         }
 
         return (
-            <Parallax ref="parallax" pages={12} style={mainStyle}>
+            <Parallax ref="parallax" pages={12} style={mainStyle} className="journey-card-container">
 
                 <Parallax.Layer offset={0} speed={1} style={{ backgroundColor: '#1c2b36', width: '100%', height: '200vh' }} />
                 <Parallax.Layer offset={1} speed={1} style={{ backgroundColor: '#f0c514', width: '100%', height: '200vh' }} />

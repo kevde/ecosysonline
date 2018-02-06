@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Cropper from 'react-cropper';
-import { Upload, Icon, Modal, Select, Input } from 'antd';
+import { Upload, Icon, Modal, Select, Input, Button } from 'antd';
+import DynamicFieldSet from 'components/commons/DynamicFieldSet';
 import { Row, Col } from 'react-flexbox-grid';
 import _ from 'lodash';
 
@@ -8,6 +9,14 @@ const Option = Select.Option;
 const InputGroup = Input.Group;
 
 const children = [];
+const ageClass = {
+    padding: '1px 3px',
+    borderRadius: '3px',
+    border: '1px solid gray',
+    margin: '2px',
+    color: ' gray'
+}
+
 for (let i = 0; i < 120; i++) {
     children.push(<Option key={i}>{i}</Option>);
 }
@@ -25,33 +34,48 @@ class OAgeComboInput extends Component {
 
     handleChange(value) {
         console.log(`selected ${value}`);
-        this.state.container[this.props.fieldName] = value.join(',');
+        _.set(this.state.container, this.props.fieldName, value.join(','));
         this.state.childrenAges = value;
         this.setState({ childrenAges: value, container: this.state.container });
+        this.onUpdate(this.state.container);
     }
 
     render() {
         return (
-            <InputGroup compact>
-        	<Input value={this.state.childrenAges.length} disabled style={{ width: '20%' }}/>
-            <Select
-		    mode="tags"
-		    ref="childrenAges"
-		    style={{ width: '80%' }}
-		    onChange={this.handleChange.bind(this)}
-		    onInputKeyDown={this.onInputKeyDown.bind(this)}
-		    tokenSeparators={[',']}
-		  >
-		    {children}
-		  </Select>
-		  </InputGroup>
+            <Row>
+                    <Col md={12}>
+                            <h3>Children(s)</h3>
+                    </Col>
+                    <Col md={4}>
+                           {this.state.childrenAges.length}
+                    </Col>
+                    <Col md={4}>
+                        /
+                        {this.state.childrenAges.map((age) => (<span style={ageClass}>{age}</span>))}
+                    </Col>
+                    <Col md={4}>
+                        <Button onClick={this.openModal.bind(this)}>Edit</Button>
+                    </Col>
+                    <Modal visible={this.state.modalVisible} footer={null}>
+                          <DynamicFieldSet initialValues={this.state.childrenAges} onChange={this.onChange.bind(this)}/>
+                    </Modal>
+                </Row>
         );
     }
 
-    onInputKeyDown(e) {
-        if (isNaN(e.key)) {
-            e.preventDefault();
+    openModal() {
+        this.setState({ modalVisible: true });
+    }
+
+    onUpdate(container) {
+        if (this.props.onUpdate) {
+            this.props.onUpdate(container);
         }
+    }
+
+    onChange(ages) {
+        this.handleChange(ages);
+        this.setState({ modalVisible: false });
     }
 }
 

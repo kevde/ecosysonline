@@ -11,7 +11,7 @@ class Goal {
         this.id = id;
         this.financialGoal = "";
         this.productPrice = "";
-        this.ctr = { traffic: 0, optin: 0, closerate: 0 };
+        this.ctr = { traffic: 0.01, optin: 0.01, closerate: 0.01 };
         this.journey = new Journey();
         this.statement = "";
         this.omissions = "";

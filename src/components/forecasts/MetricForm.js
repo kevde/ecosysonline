@@ -2,12 +2,23 @@ import React, { Component } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import { withRouter } from 'react-router';
 import MetricTable from './MetricTable';
-import { Modal, Spin } from 'antd';
+import { Modal, Spin, Affix } from 'antd';
 import MetricBarGraph from './MetricBarGraph';
 import MonthService from 'components/commons/MonthService';
 import { MetricsCrudService } from 'utils/MetricsCrudService';
 import { GoalCrudService } from 'utils/GoalCrudService';
+import * as Messages from 'constants/Messages';
+import MediaQuery from 'react-responsive';
 import _ from 'lodash';
+
+const metricsMap = {
+    [Messages.REVENUES]: Messages.REVENUES_TITLE,
+    [Messages.IMPRESSIONS]: Messages.IMPRESSIONS_TITLE,
+    [Messages.TRAFFIC]: Messages.TRAFFIC_TITLE,
+    [Messages.OPTIN]: Messages.OPTIN_TITLE,
+    [Messages.CLOSE_RATE]: Messages.CLOSE_RATE_TITLE,
+}
+
 
 class MetricForm extends Component {
     constructor(props) {
@@ -34,20 +45,35 @@ class MetricForm extends Component {
 
     async updateMetrics(goalId, type) {
         let metrics = [];
+        let metricTitle = metricsMap[type];
         if (type) {
             metrics = await this.crudService.listByGoalIdAndType(goalId, type);
         } else {
             const goal = await this.goalCrudService.get(goalId)
             metrics = await this.crudService.listByGoal(goal);
         }
-        this.setState({ metrics, loading: false });
+        this.setState({ metrics, loading: false, metricTitle });
     }
 
     render() {
         const metrics = this.state.metrics;
         return (
             <Spin spinning={this.state.loading}>
-            <h1>{this.props.label}</h1>
+            <div ref={(topDiv) => this.topDiv = topDiv}>
+                <MediaQuery query="(min-width: 768px)">
+                      <Affix offsetTop={0}>
+                          <div className="content-title-header">
+                              <h1>{this.state.metricTitle}</h1>
+                          </div>
+                      </Affix>
+                </MediaQuery>
+                <MediaQuery query="(max-width: 768px)">
+                      <Affix offsetTop={64}>
+                          <div className="content-title-header">
+                              <h1>{this.state.metricTitle}</h1>
+                          </div>
+                      </Affix>
+                </MediaQuery>
                 <Row>
                     <Col md={12}>
                         <MetricBarGraph metrics={metrics} ref="metricBarGraph"/>
@@ -61,6 +87,7 @@ class MetricForm extends Component {
                         <MetricTable isEditable={false} dateFormat="[Q]Q (YYYY)"  metrics={MonthService.getQuarterlyMetricValues(metrics)}/>
                     </Col>
                 </Row>
+            </div>
             </Spin>
         );
     }

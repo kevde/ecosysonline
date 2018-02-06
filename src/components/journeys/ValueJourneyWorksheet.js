@@ -29,7 +29,7 @@ class ValueJourneyWorksheet extends Component {
         return (
             <Spin spinning={this.state.loading}>
                 <JourneySettingModal journey={this.state.journey} onUpdate={this.onUpdate.bind(this)} loading={this.state.loading} />
-                <ValueJourneyForm journey={this.state.journey}/>
+                <ValueJourneyForm journey={this.state.journey} onUpdate={this.onUpdate.bind(this)} />
             </Spin>
         );
     }

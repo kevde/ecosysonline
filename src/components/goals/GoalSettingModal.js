@@ -86,7 +86,11 @@ class GoalSettingModal extends Component {
                     <Col xs={12}>
                         <ONumericSlider  
                             container={this.state.goal} 
-                            fieldName='ctr.traffic' 
+                            step={0.01}
+                            min={0.01}
+                            max={100}
+                            fieldName='ctr.traffic'
+                            defaultValue={0.01}
                             placeholder="(i.e) $20000"
                             suffix="%"
                             label='What is the your ideal traffic CTR?'/>
@@ -95,8 +99,12 @@ class GoalSettingModal extends Component {
                 <Row
                     title="Optin CTR">
                     <Col xs={12}>
-                        <ONumericInput  
+                        <ONumericSlider  
                             container={this.state.goal} 
+                            step={0.01}
+                            min={0.01}
+                            max={100}
+                            defaultValue={0.01}
                             fieldName='ctr.optin' 
                             placeholder="(i.e) $20000"
                             suffix="%"
@@ -106,8 +114,12 @@ class GoalSettingModal extends Component {
                 <Row
                     title="Close Rate">
                     <Col xs={12}>
-                        <ONumericInput  
+                        <ONumericSlider  
                             container={this.state.goal} 
+                            step={0.01}
+                            min={0.01}
+                            max={100}
+                            defaultValue={0.01}
                             fieldName='ctr.closerate' 
                             placeholder="(i.e) $20000"
                             suffix="%"

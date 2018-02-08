@@ -29,7 +29,7 @@ class CoreProblems extends Component {
                         <h3>Solutions</h3>
                     </Col>
                 </Row>
-                <Row md={12}>
+                <Row md={12} start="md">
                     <Col md={6}>
                          1. {this.state.persona.coreProblems.painPoints[0]}
                     </Col>
@@ -47,7 +47,7 @@ class CoreProblems extends Component {
                         }
                     </Col>
                 </Row>
-                <Row md={12}>
+                <Row md={12} start="md">
                     <Col md={6}>
                          2. {this.state.persona.coreProblems.painPoints[1]}
                     </Col>
@@ -65,7 +65,7 @@ class CoreProblems extends Component {
                         }
                     </Col>
                 </Row>
-                <Row md={12}>
+                <Row md={12} start="md">
                     <Col md={6}>
                          3. {this.state.persona.coreProblems.painPoints[2]}
                     </Col>

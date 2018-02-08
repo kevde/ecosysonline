@@ -41,7 +41,7 @@ class ProfileSettingStepBar
                         <div className="steps-content">{steps[this.state.current].content}</div>
                     </Col>
                 </Row>
-                <Row>
+                <Row className="step-bar-controls">
                     <Col xs={1} xsOffset={1}>
                       {
                         this.state.current > 0 && this.state.current < steps.length - 1

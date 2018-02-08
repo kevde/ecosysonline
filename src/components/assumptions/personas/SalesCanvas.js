@@ -1,7 +1,6 @@
 import _ from "lodash";
 import React, { Component } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
-import AvatarForm from 'components/assumptions/avatars/AvatarForm';
 import { Card, Button, Icon } from 'antd';
 
 class SalesCanvas extends Component {

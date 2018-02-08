@@ -3,6 +3,7 @@ import { Row, Col } from 'react-flexbox-grid';
 import { InputNumber, Select} from 'antd';
 import OImageUpload from 'components/commons/OImageUpload';
 import OTextField from 'components/commons/OTextField';
+import ONumericInput from 'components/commons/ONumericInput';
 import OCustomInput from 'components/commons/OCustomInput';
 import OAgeComboInput from 'components/commons/OAgeComboInput';
 import { PersonaCrudService } from 'utils/PersonaCrudService';
@@ -37,19 +38,26 @@ class BasicInfo extends Component {
                     <Col md={6}>
                         <OCustomInput container={this.state.persona} fieldName="age" label="Age" component={InputNumber} min={18} max={120}/>
                         <OCustomInput container={this.state.persona} fieldName="gender" label="Gender" component={Select} style={{width: "100%"}}>
-                                  <Option value="1">Male</Option>
-                                  <Option value="2">Female</Option>
-                                  <Option value="0">Other</Option>
-                                  <Option value="9">I prefer not to say</Option>
+                                  <Option value="MALE">Male</Option>
+                                  <Option value="FEMALE">Female</Option>
+                                  <Option value="OTHER">Other</Option>
+                                  <Option value="NA">I prefer not to say</Option>
                         </OCustomInput>
-                        <OTextField container={this.state.persona} fieldName="info.maritalStatus" label="Marital Status" />
+                        <OCustomInput container={this.state.persona} fieldName="info.maritalStatus" label="Marital Status" component={Select} style={{width: "100%"}}>
+                                  <Option value="SINGLE">Single</Option>
+                                  <Option value="MARRIED">Married</Option>
+                                  <Option value="SEPARATED">Separated</Option>
+                                  <Option value="DIVORCED">Divorced</Option>
+                                  <Option value="WIDOWED">Widowed</Option>
+                                  <Option value="NA">Prefer not to answer</Option>
+                        </OCustomInput>
                         <OAgeComboInput container={this.state.persona} fieldName="info.children" label="#/Age of Children" />
                         <OTextField container={this.state.persona} fieldName="info.location" label="Location" />
                     </Col>
                     <Col md={6}>
                         <OTextField container={this.state.persona} fieldName="info.quote" label="Quote" />
                         <OTextField container={this.state.persona} fieldName="info.jobTitle" label="Job Title" />
-                        <OTextField container={this.state.persona} fieldName="info.income" label="Annual Income" />
+                        <ONumericInput container={this.state.persona} fieldName="info.income" label="Annual Income" prefix="$" />
                         <OTextField container={this.state.persona} fieldName="info.education" label="Level of Education" />
                         <OTextField container={this.state.persona} fieldName="info.other" label="Other" />
                     </Col>

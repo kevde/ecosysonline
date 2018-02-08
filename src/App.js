@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import reactRouter, { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { Row, Col } from 'react-flexbox-grid';
-import Videos from './components/videos/Videos';
 import Assumptions from './components/assumptions/Assumptions';
 import ValueJourneyWorksheet from './components/journeys/ValueJourneyWorksheet';
 import Sidebar from './components/layouts/Sidebar';
@@ -87,7 +86,6 @@ class App extends Component {
                         <MainHeader ref="mainHeader" user={this.state.user} onLogout={this.onLogout.bind(this)} onMenuClick={this.onMenuClick.bind(this)}/>
                         <Content className="content">
                           <Route exact={true} path="/"  render={(props) => <GoalList {...props} user={this.state.user} crudService={this.goalCrudService} goalId={this.state.currentGoalId} onUpdate={(goal) => this.setDefaultGoal(goal)} />} />
-                          <Route exact={true} path="/videos" component={Videos}/>
                           <Route exact={true} path="/assumptions/:goalId" render={(props) => <Assumptions {...props} goal={this.state.user.goals} crudService={this.personaCrudService} /> }/>
                           <Route exact={true} path="/journeys/:goalId"  onEnter={this.changeClassName.bind(this)} render={(props) => <ValueJourneyWorksheet {...props} goal={this.state.user.goals} crudService={this.journeyCrudService} /> } />
                           <Route exact={true} path="/forecast/:type/:goalId" render= {() => <MetricForm isEditable={true} /> } />

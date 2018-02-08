@@ -40,9 +40,13 @@ class ONumericSlider extends React.Component {
         if (this.isValueValid(value)) {
             const modifiedValue = (value !== "" && !_.endsWith(value, '.')) ? parseFloat(value) : value;
             _.set(this.state, `container.${this.props.fieldName}`, modifiedValue);
+            this.value = modifiedValue;
             this.setState(this.state);
             if (this.props.onChange) {
-                this.props.onChange(e);
+                this.props.onChange(modifiedValue);
+            }
+            if (this.props.onUpdate) {
+                this.props.onUpdate(this.state.container);
             }
         } else {
             if (value.charAt(value.length - 1) === '.' || value === '-') {
@@ -52,6 +56,8 @@ class ONumericSlider extends React.Component {
             e.target.value = _.get(this.state, `container.${this.props.fieldName}`, "");
             e.preventDefault();
         }
+
+        return value;
     }
 
     onBlur(e) {
@@ -66,31 +72,36 @@ class ONumericSlider extends React.Component {
 
     isValueValid(value) {
         const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
-        return (!isNaN(value) && reg.test(value)) || value === '' || value === '-';
+        const isMaxOut = this.props.max ? this.props.max >= value : true;
+        const isMinOut = this.props.min ? this.props.min <= value : true;
+        return ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') && isMaxOut && isMinOut;
     }
 
     onSliderChange(value) {
-            _.set(this.state, `container.${this.props.fieldName}`, value);
-            this.setState(this.state);
+        _.set(this.state, `container.${this.props.fieldName}`, value);
+        this.setState(this.state);
+        if (this.props.onUpdate) {
+            this.props.onUpdate(this.state.container);
+        }
     }
 
     render() {
         return (
             <Row>
                 {(this.props.label) ? (<h3>{this.props.label}</h3>) : "" }
-                <Col xs={8}>
-		            <Slider {...this.props} onChange={this.onSliderChange.bind(this)} value={_.get(this.state, `container.${this.props.fieldName}`, "")} width='75%'/>
+                <Col md={8}>
+                    <Slider {...this.props} onChange={this.onSliderChange.bind(this)} value={_.get(this.state, `container.${this.props.fieldName}`, "")} width='75%'/>
                 </Col>
-                <Col xs={4}>
-	                <Input
-	                  width='20%'
-	                  {...this.props}
-	                  value={_.get(this.state, `container.${this.props.fieldName}`, "")}
-	                  onChange={this.onChange.bind(this)}
-	                  onBlur={this.onBlur.bind(this)}
-	                  placeholder={this.props.placeholder ? this.props.placeholder : "Input a number"}
-	                  maxLength="25"
-	                />
+                <Col md={4}>
+                    <Input
+                      width='20%'
+                      {...this.props}
+                      value={_.get(this.state, `container.${this.props.fieldName}`, "")}
+                      onChange={this.onChange.bind(this)}
+                      onBlur={this.onBlur.bind(this)}
+                      placeholder={this.props.placeholder ? this.props.placeholder : "Input a number"}
+                      maxLength="25"
+                    />
                 </Col>
             </Row>
         );

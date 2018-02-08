@@ -72,12 +72,21 @@ class JourneySettingModal extends Component {
                     container={this.state.journey} 
                     fieldName='advocate' 
                     label='What will you provide in the advocate step?'/>
-                <OTextArea 
-                    onUpdate={this.onUpdate.bind(this)} 
-                    title="Promote" 
-                    container={this.state.journey} 
-                    fieldName='promote' 
-                    label='How does your persona going to promote you?'/>
+                <Col title="Sell" xs={12}>
+                    <Row>
+                    <Col xs="12">
+                        <OTextArea 
+                            onUpdate={this.onUpdate.bind(this)} 
+                            title="Promote" 
+                            container={this.state.journey} 
+                            fieldName='promote' 
+                            label='How does your persona going to promote you?'/>
+                    </Col>
+                    </Row>
+                    <Row center="xs" className="step-bar-controls">
+                        <Button type="primary" size="lg" onClick={() => this.done()}>Done</Button>
+                    </Row>
+                </Col>   
             </JourneySettingStepBar>
         </Modal>
         );
@@ -86,7 +95,6 @@ class JourneySettingModal extends Component {
     done() {
         this.state.journey.enabled = true;
         this.setState({ journey: this.state.journey });
-        this.showNotification();
         this.hideModal();
     }
 

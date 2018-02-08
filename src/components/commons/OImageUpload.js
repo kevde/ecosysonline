@@ -32,7 +32,7 @@ class OImageUpload extends Component {
 
     render() {
         return (
-            <div>
+            <div className="avatar-photo">
             <Modal visible={this.state.modalVisible} onOk={this.onSave.bind(this)}  onCancel={this.hideModal.bind(this)}>
                 <Spin spinning={this.state.loading}>
                 <Row>
@@ -69,8 +69,8 @@ class OImageUpload extends Component {
                 </Row>
                 </Spin>
             </Modal>
-            <div className="avatar-photo" onClick={this.displayModal.bind(this)}>
-                <img src={this.state.container[this.props.fieldName]} ref="imageContainer" alt="" />
+            <div onClick={this.displayModal.bind(this)}>
+                    <img src={this.state.container[this.props.fieldName]} ref="imageContainer" alt="" />
             </div>
         </div>
         );

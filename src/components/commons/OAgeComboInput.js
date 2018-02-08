@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Cropper from 'react-cropper';
 import { Upload, Icon, Modal, Select, Input, Button } from 'antd';
-import DynamicFieldSet from 'components/commons/DynamicFieldSet';
+import DynamicAgeInput from 'components/commons/DynamicAgeInput';
 import { Row, Col } from 'react-flexbox-grid';
 import _ from 'lodash';
 
@@ -14,7 +14,12 @@ const ageClass = {
     borderRadius: '3px',
     border: '1px solid gray',
     margin: '2px',
-    color: ' gray'
+    color: ' gray',
+    display: 'table-row'
+}
+
+const yrsOldClass = {
+    fontSize: '1vh',
 }
 
 for (let i = 0; i < 120; i++) {
@@ -50,17 +55,20 @@ class OAgeComboInput extends Component {
                            {this.state.childrenAges.length}
                     </Col>
                     <Col md={4}>
-                        /
-                        {this.state.childrenAges.map((age) => (<span style={ageClass}>{age}</span>))}
+                        {this.createAgesCard(this.state.childrenAges)}
                     </Col>
                     <Col md={4}>
                         <Button onClick={this.openModal.bind(this)}>Edit</Button>
                     </Col>
-                    <Modal visible={this.state.modalVisible} footer={null}>
-                          <DynamicFieldSet initialValues={this.state.childrenAges} onChange={this.onChange.bind(this)}/>
+                    <Modal visible={this.state.modalVisible} footer={null} onCancel={this.hideModal.bind(this)}>
+                          <DynamicAgeInput initialValues={this.state.childrenAges} onChange={this.onChange.bind(this)}/>
                     </Modal>
                 </Row>
         );
+    }
+
+    hideModal() {
+        this.setState({ modalVisible: false, container: this.props.container, childrenAges: _.get(this.props.container, this.props.fieldName, '').split(','), });
     }
 
     openModal() {
@@ -76,6 +84,16 @@ class OAgeComboInput extends Component {
     onChange(ages) {
         this.handleChange(ages);
         this.setState({ modalVisible: false });
+    }
+
+
+    createAgesCard(childrenAges) {
+        const distinctAges = [...new Set(childrenAges)].sort();
+        return distinctAges.map((age) => (<span style={ageClass}>{this.countAges(childrenAges, age)} x {age} <span style={yrsOldClass}>yrs old</span></span>));
+    }
+
+    countAges(childrenAges, age) {
+        return childrenAges.filter((childAge) => age === childAge).length;
     }
 }
 

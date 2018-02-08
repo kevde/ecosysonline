@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React, { Component } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
-import AvatarForm from 'components/assumptions/avatars/AvatarForm';
+import PersonaInfoForm from 'components/assumptions/personas/PersonaInfoForm';
 import { Card, Button, Icon } from 'antd';
 
 class ProfileCard extends Component {
@@ -33,7 +33,7 @@ class ProfileCard extends Component {
                      <Icon type="delete" onClick={this.onDelete.bind(this)} />
                     </p>
                 </Card>
-                <AvatarForm persona={this.state.persona} ref="personaModal" beforeClose={() => this.reRender()} onUpdate={this.onUpdate.bind(this)}></AvatarForm>
+                <PersonaInfoForm persona={this.state.persona} ref="personaModal" beforeClose={() => this.reRender()} onUpdate={this.onUpdate.bind(this)}></PersonaInfoForm>
             </div>
         );
     }

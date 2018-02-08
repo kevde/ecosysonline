@@ -7,7 +7,7 @@ import PainPointsForm from 'components/assumptions/profiles/PainPointsForm';
 import OTextArea from 'components/commons/OTextArea';
 import { Card, Button, Icon } from 'antd';
 
-class AvatarForm extends Component {
+class PresonaInfoForm extends Component {
 
     constructor(props) {
         super(props);
@@ -56,16 +56,18 @@ class AvatarForm extends Component {
                         fieldName='salesCanvas.conversation' 
                         label='Who do you serve? Where are the talking? What are you talking about?'/>
                     <Col title="Sell" xs={12}>
-                        <Row center="xs">
+                        <Row>
+                        <Col xs="12">
                             <OTextArea
                                 onUpdate={this.onUpdate.bind(this)} 
                                 title="Sell" 
                                 container={this.state.persona} 
                                 fieldName='salesCanvas.sell' 
                                 label='What do you offer to help your customer?'/>
+                        </Col>
                         </Row>
-                        <Row center="xs">
-                            <Button type="primary" onClick={() => this.done()}>Done</Button>
+                        <Row center="xs" className="step-bar-controls">
+                            <Button type="primary" size="lg" onClick={() => this.done()}>Done</Button>
                         </Row>
                     </Col>
             </ProfileSettingStepBar>
@@ -94,4 +96,4 @@ class AvatarForm extends Component {
     }
 }
 
-export default AvatarForm;
+export default PresonaInfoForm;

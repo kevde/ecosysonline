@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import { Card } from 'antd';
-import OTextField from 'components/commons/OTextField';
+import OTextArea from 'components/commons/OTextArea';
 
 class CoreProblems extends Component {
 
@@ -36,7 +36,7 @@ class CoreProblems extends Component {
                     <Col md={6}>
                         {
                             this.state.isEdited['solution0'] 
-                            ? <OTextField onBlur={() => this.toggle('solution0')} 
+                            ? <OTextArea onBlur={() => this.toggle('solution0')} 
                                 prefix="1. "
                                 container={this.state.persona} 
                                 fieldName="coreProblems.solutions.0" 
@@ -54,7 +54,7 @@ class CoreProblems extends Component {
                     <Col md={6}>
                         {
                             this.state.isEdited['solution1'] 
-                            ? <OTextField onBlur={() => this.toggle('solution1')} 
+                            ? <OTextArea onBlur={() => this.toggle('solution1')} 
                                 prefix="2. "
                                 container={this.state.persona} 
                                 fieldName="coreProblems.solutions.1"
@@ -72,7 +72,7 @@ class CoreProblems extends Component {
                     <Col md={6}>
                         {
                             this.state.isEdited['solution2'] 
-                            ? <OTextField onBlur={() => this.toggle('solution2')} 
+                            ? <OTextArea onBlur={() => this.toggle('solution2')} 
                                 prefix="3. "
                                 container={this.state.persona}
                                 fieldName="coreProblems.solutions.2" 
@@ -93,6 +93,8 @@ class CoreProblems extends Component {
         this.setState({ isHidden: this.state.isEdited }, () => {
             if (this.state.isEdited[fieldName]) {
                 this.refs[fieldName].focus();
+            } else {
+                this.onUpdate(this.state.persona);
             }
         });
     }

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
-import { InputNumber, Select} from 'antd';
+import { InputNumber, Select } from 'antd';
 import OImageUpload from 'components/commons/OImageUpload';
 import OTextField from 'components/commons/OTextField';
 import ONumericInput from 'components/commons/ONumericInput';
 import OCustomInput from 'components/commons/OCustomInput';
 import OAgeComboInput from 'components/commons/OAgeComboInput';
+import OAddressAutoComplete from 'components/commons/OAddressAutoComplete';
 import { PersonaCrudService } from 'utils/PersonaCrudService';
 const Option = Select.Option;
 class BasicInfo extends Component {
@@ -52,7 +53,7 @@ class BasicInfo extends Component {
                                   <Option value="NA">Prefer not to answer</Option>
                         </OCustomInput>
                         <OAgeComboInput container={this.state.persona} fieldName="info.children" label="#/Age of Children" />
-                        <OTextField container={this.state.persona} fieldName="info.location" label="Location" />
+                        <OAddressAutoComplete container={this.state.persona} fieldName="info.location" label="Location" onUpdate={this.onUpdate.bind(this)} />
                     </Col>
                     <Col md={6}>
                         <OTextField container={this.state.persona} fieldName="info.quote" label="Quote" />

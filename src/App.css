@@ -45,9 +45,18 @@
     }
 }
 
+.addPersona>.ant-card-body {
+    margin: 30vh;
+    text-align: center;
+}
+
 .ant-avatar-icon {
     margin: 10px;
     right: 0px;
+}
+
+.ant-card-head {
+    border-bottom: none;
 }
 
 .ant-layout-sider {
@@ -81,20 +90,10 @@ input.ant-input {
     padding: 1rem autp;
 }
 
-.logo {
-    padding: 1em;
-}
 
-.persona {
-    margin: 2rem auto;
-}
-
-.goal-setting>.row {
-    margin: 10em;
-}
-
-.goal-setting .steps-content {
-    margin: 5rem auto;
+.ant-upload-text {
+    text-align: center;
+    width: 100%;
 }
 
 .avatar-photo {
@@ -119,11 +118,6 @@ input.ant-input {
     width: 100%;
 }
 
-.ant-upload-text {
-    text-align: center;
-    width: 100%;
-}
-
 .canvas-container {
     width: 100% !important;
     height: auto !important;
@@ -142,10 +136,6 @@ input.ant-input {
     display: none !important;
 }
 
-.addPersona>.ant-card-body {
-    margin: 30vh;
-    text-align: center;
-}
 
 .content .row {
     margin: 1rem auto;
@@ -173,8 +163,75 @@ input.ant-input {
     background-color: #f0f3f4;
 }
 
+.logo {
+    padding: 1em;
+}
+
+.goal-setting>.row {
+    margin: 10em;
+}
+
+.goal-setting .steps-content {
+    margin: 5rem auto;
+}
+
+.persona {
+    margin: 2rem auto;
+}
+
+.persona-location input {
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+}
+
 .row .ant-card {
     min-height: 100%;
+}
+
+.stat-box {
+    border-radius: 0.5rem;
+    -webkit-box-shadow: 1px 1px 5px;
+    box-shadow: 1px 1px 5px;
+    padding: 0.5rem;
+    height: 5rem;
+    display: inline-grid;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    width: calc(20% - 1rem);
+    color: white;
+    margin: 0.5rem;
+}
+
+.stat-value {
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.stat-description {
+    width: 100%;
+    text-align: center;
+    font-size: 1vmax;
+}
+
+.stat-feedbacks {
+    background-color: #00bcd4;
+}
+
+.stat-profit {
+    background-color: #8bc34a;
+}
+
+.stat-orders {
+    background-color: #1d89cf;
+}
+
+.stat-popularity {
+    background-color: #a767dd;
+}
+
+.stat-revenue {
+    background-color: #ffc700;
 }
 
 blockquote {

@@ -4,7 +4,7 @@ import { Card, Spin } from 'antd';
 import JourneySettingModal from './JourneySettingModal';
 import JourneyCard from './JourneyCard';
 import { Journey } from 'core/Journey';
-import ValueJourneyForm from './ValueJourneyForm';
+import ValueJourneyCanvas from './ValueJourneyCanvas';
 
 class ValueJourneyWorksheet extends Component {
     constructor(props) {
@@ -29,7 +29,7 @@ class ValueJourneyWorksheet extends Component {
         return (
             <Spin spinning={this.state.loading}>
                 <JourneySettingModal journey={this.state.journey} onUpdate={this.onUpdate.bind(this)} loading={this.state.loading} />
-                <ValueJourneyForm journey={this.state.journey} onUpdate={this.onUpdate.bind(this)} />
+                <ValueJourneyCanvas journey={this.state.journey}/>
             </Spin>
         );
     }

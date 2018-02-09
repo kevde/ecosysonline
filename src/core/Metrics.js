@@ -25,10 +25,10 @@ class MetricValue {
         return this.month.quarter();
     }
 
-    get monthOfYear() {
+    get label() {
         return this.month.format('MMM-YYYY');
     }
-
+ 
     createMonthlyMetricValue(months, month) {
         const goal = Number(this.goal ? this.goal / months : 0).toFixed(2);
         const stretch = Number(this.stretch ? this.stretch / months : 0).toFixed(2);
@@ -58,7 +58,7 @@ class RevenueMetricValue {
         return this.actual - this.goal;
     }
 
-    get monthOfYear() {
+    get label() {
         return this.month.format('MMM-YYYY');
     }
 
@@ -109,6 +109,10 @@ class QuarterMetricValue {
 
     get month() {
         return new moment().quarter(this.quarter).year(this.year);
+    }
+
+    get label() {
+        return this.month.format('MMM-YYYY');
     }
 }
 

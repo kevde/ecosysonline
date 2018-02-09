@@ -13,6 +13,7 @@ import GoalList from './components/goals/GoalList';
 import LoginForm from './components/login/LoginForm';
 import RegisterForm from './components/login/RegisterForm';
 import MonthService from 'components/commons/MonthService';
+import Dashboard from 'components/dashboard/Dashboard';
 import { UserCrudService, GoalCrudService, PersonaCrudService, MetricsCrudService, JourneyCrudService } from 'utils/CrudService';
 import _ from 'lodash';
 
@@ -86,6 +87,7 @@ class App extends Component {
                         <MainHeader ref="mainHeader" user={this.state.user} onLogout={this.onLogout.bind(this)} onMenuClick={this.onMenuClick.bind(this)}/>
                         <Content className="content">
                           <Route exact={true} path="/"  render={(props) => <GoalList {...props} user={this.state.user} crudService={this.goalCrudService} goalId={this.state.currentGoalId} onUpdate={(goal) => this.setDefaultGoal(goal)} />} />
+                          <Route exact={true} path="/dashboard"  render={(props) => <Dashboard user={this.state.user} /> } />
                           <Route exact={true} path="/assumptions/:goalId" render={(props) => <Assumptions {...props} goal={this.state.user.goals} crudService={this.personaCrudService} /> }/>
                           <Route exact={true} path="/journeys/:goalId"  onEnter={this.changeClassName.bind(this)} render={(props) => <ValueJourneyWorksheet {...props} goal={this.state.user.goals} crudService={this.journeyCrudService} /> } />
                           <Route exact={true} path="/forecast/:type/:goalId" render= {() => <MetricForm isEditable={true} /> } />

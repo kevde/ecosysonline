@@ -20,8 +20,9 @@ class OTextArea extends Component {
             <h3>{this.props.label}</h3>
             <TextArea 
             {...this.props} 
+            ref="textArea"
             rows={this.props.rows || 4} 
-            onBlur={() => this.onBlur()} 
+            onBlur={this.onBlur.bind(this)} 
             value={value}
             onChange={(event) => this.changeField(event)} />
         </div>
@@ -33,10 +34,19 @@ class OTextArea extends Component {
         this.setState({ container: this.state.container });
     }
 
-    onBlur() {
+    onBlur(e) {
+        if (this.props.onBlur) {
+            this.props.onBlur(e);
+        }
+
         if (this.props.onUpdate) {
             this.props.onUpdate(this.state.container);
         }
+    }
+
+
+    focus() {
+        this.refs.textArea.focus();
     }
 }
 

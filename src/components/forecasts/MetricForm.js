@@ -30,6 +30,7 @@ class MetricForm extends Component {
             loading: true,
             view: props.view,
             metrics: [],
+            quarterlyMetrics: [],
             goals: props.goals,
             visible: true
         }
@@ -45,6 +46,8 @@ class MetricForm extends Component {
 
     async updateMetrics(goalId, type) {
         let metrics = [];
+        let quarterlyMetrics = []
+        ''
         let metricTitle = metricsMap[type];
         if (type) {
             metrics = await this.crudService.listByGoalIdAndType(goalId, type);
@@ -52,11 +55,14 @@ class MetricForm extends Component {
             const goal = await this.goalCrudService.get(goalId)
             metrics = await this.crudService.listByGoal(goal);
         }
-        this.setState({ metrics, loading: false, metricTitle });
+
+        quarterlyMetrics = MonthService.getQuarterlyMetricValues(metrics);
+        this.setState({ metrics, quarterlyMetrics, loading: false, metricTitle });
     }
 
     render() {
         const metrics = this.state.metrics;
+        const quarterlyMetrics = this.state.quarterlyMetrics;
         return (
             <Spin spinning={this.state.loading}>
             <div ref={(topDiv) => this.topDiv = topDiv}>
@@ -84,7 +90,7 @@ class MetricForm extends Component {
                         <MetricTable isEditable={this.state.isEditable} dateFormat="MMM-YYYY" metrics={metrics} onBlur={this.updateMetricValues.bind(this)}/>
                     </Col>
                     <Col md={6}>
-                        <MetricTable isEditable={false} dateFormat="[Q]Q (YYYY)"  metrics={MonthService.getQuarterlyMetricValues(metrics)}/>
+                        <MetricTable isEditable={false} dateFormat="[Q]Q (YYYY)"  metrics={quarterlyMetrics}/>
                     </Col>
                 </Row>
             </div>

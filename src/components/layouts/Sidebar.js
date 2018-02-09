@@ -61,6 +61,11 @@ class Sidebar extends Component {
                     <Icon type="right" />
                     <span>Start</span></Link>
                   </Menu.Item>
+                  <Menu.Item key="dashboard">
+                    <Link to={`/dashboard`}>
+                    <Icon type="dashboard" />
+                    <span>Dashboard</span></Link>
+                  </Menu.Item>
                   {(goalId) ? 
                     this.renderForecastMenu(goalId)
                      : ""}

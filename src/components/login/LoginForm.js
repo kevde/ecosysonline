@@ -49,14 +49,14 @@ class NormalLoginForm extends React.Component {
                       {getFieldDecorator('userName', {
                         rules: [{ required: true, message: 'Please input your username!' }],
                       })(
-                        <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} size="lg" placeholder="Username" />
+                        <Input prefix={(<div><Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} /><span> USERNAME | </span></div>)} size="lg" placeholder="Enter your email or your username" />
                       )}
                     </FormItem>
                     <FormItem>
                       {getFieldDecorator('password', {
                         rules: [{ required: true, message: 'Please input your Password!' }],
                       })(
-                        <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} size="lg" type="password" placeholder="Password" />
+                        <Input prefix={(<div><Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} /><span> PASSWORD | </span></div>)} size="lg" type="password" placeholder="Enter your password" />
                       )}
                     </FormItem>
                     <FormItem>

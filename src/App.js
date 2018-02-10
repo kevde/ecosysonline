@@ -58,7 +58,7 @@ class App extends Component {
         return (
             <Layout>
                 <Row className="login-panel" middle="lg">
-                    <Col lg={3} center="lg" className="login-panel-col">
+                    <Col lg={4} center="lg" className="login-panel-col">
                         <Row>
                             <Col xs={4} xsOffset={4} md={6} mdOffset={3}>
                                 <img src={`${process.env.PUBLIC_URL}/blue-logo.png`} className="main-logo" />
@@ -72,7 +72,7 @@ class App extends Component {
                         <Route exact={true} path="/register"  render={(props) => <RegisterForm crudService={this.userCrudService} onUpdate={(user) => this.reRenderUser(user)} /> } />
                     </Col>
                     <MediaQuery query="(min-width: 768px)">
-                        <Col lg={9} style={this.backgroundJourney} className="login-bg" />
+                        <Col lg={8} style={this.backgroundJourney} className="login-bg" />
                     </MediaQuery>
                 </Row>
             </Layout>

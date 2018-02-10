@@ -32,7 +32,7 @@ class MetricBarGraph extends Component {
         return (
             <Card title={this.props.title || 'Statistics'} extra={this.renderModes()}>
              <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={this.state[this.state.mode] onClick={this.onClick.bind(this)}}
+                <AreaChart data={this.state[this.state.mode]} onClick={this.onClick.bind(this)}
                   margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
                   <XAxis dataKey="label"/>
                   <YAxis />

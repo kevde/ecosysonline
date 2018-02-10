@@ -44,26 +44,27 @@ class NormalLoginForm extends React.Component {
         const { getFieldDecorator } = this.props.form;
         return (
             <Spin spinning={this.state.loading}>
+                <h1>Welcome back!</h1>
                 <Form onSubmit={this.handleSubmit.bind(this)} className="login-form">
                     <FormItem>
                       {getFieldDecorator('userName', {
                         rules: [{ required: true, message: 'Please input your username!' }],
                       })(
-                        <Input prefix={(<div><Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} /><span> USERNAME | </span></div>)} size="lg" placeholder="Enter your email or your username" />
+                        <Input addonBefore="USERNAME" size="lg" placeholder="Enter your email or your username" />
                       )}
                     </FormItem>
                     <FormItem>
                       {getFieldDecorator('password', {
                         rules: [{ required: true, message: 'Please input your Password!' }],
                       })(
-                        <Input prefix={(<div><Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} /><span> PASSWORD | </span></div>)} size="lg" type="password" placeholder="Enter your password" />
+                        <Input addonBefore="PASSWORD" size="lg" type="password" placeholder="Enter your password" />
                       )}
                     </FormItem>
                     <FormItem>
                       <Button type="primary" htmlType="submit" size="lg"  className="login-form-button">
-                        Log in
+                        LOGIN
                       </Button>
-                      <p>
+                      <p style={{ textAlign: 'center' }}>
                         Or <Link to={`/register`}>Register now!</Link>  
                       </p>
                     </FormItem>

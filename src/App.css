@@ -1,6 +1,7 @@
 * {
     font-family: 'Lato', sans-serif !important;
 }
+
 .App {
     text-align: center;
 }
@@ -86,7 +87,7 @@
     background-color: darkgray;
 }
 
-input.ant-input {
+input {
     margin: 0.5rem auto;
 }
 
@@ -151,21 +152,6 @@ input.ant-input {
 
 .display-initial>div>.ant-card {
     height: 100%;
-}
-
-.login-panel {
-    min-height: 100vh;
-    background: -webkit-gradient(linear, left top, left bottom, from(#EEE), color-stop(18%, white));
-    background: -webkit-linear-gradient(#EEE 0%, white 18%);
-    background: -o-linear-gradient(#EEE 0%, white 18%);
-    background: linear-gradient(#EEE 0%, white 18%);
-    max-width: 100%;
-}
-
-.login-panel-col {
-    padding: 5vw;
-    min-height: 100vh;
-    background-color: #f0f3f4;
 }
 
 .logo {
@@ -239,6 +225,10 @@ input.ant-input {
     background-color: #ffc700;
 }
 
+.trade {
+    color: #1f9fd8;
+}
+
 blockquote {
     background: #f9f9f9;
     border-left: 10px solid #ccc;
@@ -267,39 +257,92 @@ blockquote p {
 }
 
 .login-bg {
-    min-height: 100vh;
+    min-height: 100%;
     background-size: cover;
     background-position-x: center;
     background-position-y: center;
     background-repeat: no-repeat;
 }
 
-.login-panel-col .ant-input {
-    background-color: #111d2d;
-    color: white;
-    border-radius: 5rem;
-    -webkit-box-shadow: 0.5rem 0.5rem white;
-    box-shadow: 0.5rem 0.5rem white;
-}
-
 .login-form .anticon {
     color: white !important;
 }
 
-.login-form button {
-    color: #fff;
+.login-form-button {
     background-color: white;
     border-color: #1890ff;
     width: 100%;
     border-radius: 5rem;
-    color: #111d2d;
+    color: #1f9fd8;
+    border: none;
+    height: 100%;
+    padding: 0.8rem;
+    margin-top: 1.5rem;
+    box-shadow: 3px 3px 3px #ccc;
+}
+
+.login-panel {
+    min-height: 100vh;
+    width: 100vw;
+    background: -webkit-gradient(linear, left top, left bottom, from(#EEE), color-stop(18%, white));
+    background: -webkit-linear-gradient(#EEE 0%, white 18%);
+    background: -o-linear-gradient(#EEE 0%, white 18%);
+    background: linear-gradient(#EEE 0%, white 18%);
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.login-panel .ant-input-group input {
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    font-size: 0.8rem;
+    color: #bbb;
+}
+
+.login-panel .ant-input-group .ant-input-group-addon,
+.login-panel input {
+    background-color: rgb(17, 29, 45);
+    color: white;
+    border: none;
+    padding: 0.8rem;
+    height: 100%;
+}
+
+.login-panel .ant-input-group .ant-input-group-addon {
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+}
+
+.login-panel .ant-input-group-wrapper {
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+    border-radius: 2rem;
+    box-shadow: 3px 3px 3px #ccc;
+    border: 0.5px solid white;
+}
+
+.login-panel .ant-form-explain {
+    padding: 5px 0px;
+    font-size: 15px;
+    padding-left: 10px;
 }
 
 .login-panel h1 {
     color: #1f9fd8;
     text-align: center;
     font-size: 2.5rem;
-    margin-bottom: 5rem;
+    margin-bottom: 3rem;
+    font-weight: lighter;
+}
+
+.login-panel-col {
+    padding: 3vw;
+    min-height: 100vh;
+    background-color: #f0f3f4;
+    display: grid;
 }
 
 .goal-card .ant-card-body {
@@ -417,6 +460,16 @@ i.anticon {
     line-height: initial !important;
 }
 
+.ant-layout-footer {
+    bottom: 0px;
+    display: initial;
+    width: 100%;
+    align-self: end;
+    align-items: end;
+    text-align: center;
+    vertical-align: bottom;
+}
+
 .trigger-button .anticon {
     font-size: 24px;
     padding: 10px;
@@ -427,9 +480,10 @@ i.anticon {
 }
 
 img.main-logo {
-    width: 70%;
-    margin: auto 15%;
+    width: 60%;
+    margin: auto 20%;
 }
+
 
 
 /*md*/
@@ -501,6 +555,7 @@ img.main-logo {
         padding: 10px;
     }
 }
+
 
 
 

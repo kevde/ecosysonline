@@ -24,7 +24,7 @@ import 'antd/dist/antd.css';
 import 'react-grid-layout/css/styles.css';
 import MediaQuery from 'react-responsive';
 import './App.css';
-const { Content } = Layout;
+const { Content, Footer } = Layout;
 
 const METRIC_NAMES = ["visitors", "ctr", "revenue"];
 
@@ -63,16 +63,14 @@ class App extends Component {
                             <Col xs={4} xsOffset={4} md={6} mdOffset={3}>
                                 <img src={`${process.env.PUBLIC_URL}/blue-logo.png`} className="main-logo" />
                             </Col>
-                            <Col xs={12} middle="xs">
-                                <h1>Welcome back!</h1>
-                            </Col>
                         </Row>
                         { (<Redirect to="/" />) }
                         <Route exact={true} path="/"  render={(props) => <LoginForm container={this.state} crudService={this.userCrudService} onUpdate={(user) => this.reRenderUser(user)}/> } />
                         <Route exact={true} path="/register"  render={(props) => <RegisterForm crudService={this.userCrudService} onUpdate={(user) => this.reRenderUser(user)} /> } />
+                        <Footer>2018 <span>Online</span><span className="trade">Ecosystem&trade;</span></Footer>
                     </Col>
                     <MediaQuery query="(min-width: 768px)">
-                        <Col lg={8} style={this.backgroundJourney} className="login-bg" />
+                        <Col lg={8}><div style={this.backgroundJourney} className="login-bg" /></Col>
                     </MediaQuery>
                 </Row>
             </Layout>

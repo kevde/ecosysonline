@@ -91,7 +91,6 @@ class GoalSettingModal extends Component {
                             max={100}
                             fieldName='ctr.traffic'
                             defaultValue={0.01}
-                            placeholder="(i.e) $20000"
                             suffix="%"
                             label='What is the your ideal traffic CTR?'/>
                     </Col>
@@ -106,7 +105,6 @@ class GoalSettingModal extends Component {
                             max={100}
                             defaultValue={0.01}
                             fieldName='ctr.optin' 
-                            placeholder="(i.e) $20000"
                             suffix="%"
                             label='What is the your ideal optin CTR?'/>
                     </Col>
@@ -121,7 +119,6 @@ class GoalSettingModal extends Component {
                             max={100}
                             defaultValue={0.01}
                             fieldName='ctr.closerate' 
-                            placeholder="(i.e) $20000"
                             suffix="%"
                             label='What is the your ideal close rate?'/>
                     </Col>

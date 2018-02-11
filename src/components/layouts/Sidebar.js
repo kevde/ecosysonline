@@ -56,15 +56,15 @@ class Sidebar extends Component {
                 </MediaQuery>
                 </div>
                 <Menu theme="dark" defaultSelectedKeys={['video']} mode="inline">
-                  <Menu.Item key="start">
-                    <Link to={`/`}>
-                    <Icon type="right" />
-                    <span>Start</span></Link>
-                  </Menu.Item>
                   <Menu.Item key="dashboard">
-                    <Link to={`/dashboard`}>
+                    <Link to={`/`}>
                     <Icon type="dashboard" />
                     <span>Dashboard</span></Link>
+                  </Menu.Item>
+                  <Menu.Item key="start">
+                    <Link to={`/goals`}>
+                    <Icon type="right" />
+                    <span>Start</span></Link>
                   </Menu.Item>
                   {(goalId) ? 
                     this.renderForecastMenu(goalId)

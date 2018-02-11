@@ -51,7 +51,7 @@ class ONumericInput extends React.Component {
             e.target.value = _.get(this.state, `container.${this.props.fieldName}`, "");
             e.stopPropagation();
         }
-    }
+    }z
 
     onBlur(e) {
         const { value } = e.target;

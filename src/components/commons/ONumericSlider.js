@@ -23,66 +23,48 @@ class ONumericSlider extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { container: props.container };
+        const value = _.get(props.container, props.fieldName, "");
+        this.state = { container: props.container, value };
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ container: nextProps.container });
+        const value = _.get(nextProps.container, nextProps.fieldName, "");
+        this.setState({ container: nextProps.container, value });
     }
 
     onChange(e) {
         let { value } = e.target;
+        const reg = /^-?(\d+)((?:(\.)(\d+))|(?:\.)|)|(?:\-)/;
 
-        if (_.startsWith(value, "0") && value.length > 1) {
-            value = _.trimStart(value, "0");
+        if (reg.test(value) || _.isEmpty(value)) {
+            this.setState({ value });
         }
-
-        if (this.isValueValid(value)) {
-            const modifiedValue = (value !== "" && !_.endsWith(value, '.')) ? parseFloat(value) : value;
-            _.set(this.state, `container.${this.props.fieldName}`, modifiedValue);
-            this.value = modifiedValue;
-            this.setState(this.state);
-            if (this.props.onChange) {
-                this.props.onChange(modifiedValue);
-            }
-            if (this.props.onUpdate) {
-                this.props.onUpdate(this.state.container);
-            }
-        } else {
-            if (value.charAt(value.length - 1) === '.' || value === '-') {
-                e.target.value = value.slice(0, -1);
-            }
-
-            e.target.value = _.get(this.state, `container.${this.props.fieldName}`, "");
-            e.preventDefault();
-        }
-
-        return value;
     }
 
     onBlur(e) {
-        const { value } = e.target;
-        if (value.charAt(value.length - 1) === '.' || value === '-') {
-            e.target.value = value.slice(0, -1);
-        }
-        if (this.props.onUpdate) {
-            this.props.onUpdate(this.state.container);
-        }
-    }
+        let { value } = e.target;
+        const reg = /^-?(\d+)((?:(\.)(\d+))|(?:\.)|)/;
 
-    isValueValid(value) {
-        const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
-        const isMaxOut = this.props.max ? this.props.max >= value : true;
-        const isMinOut = this.props.min ? this.props.min <= value : true;
-        return ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') && isMaxOut && isMinOut;
+        if (reg.test(value)) {
+            if (this.props.max && this.props.max < value) {
+                value = this.props.max;
+            }
+            this.onSliderChange(value);
+        } else if (_.isEmpty(value)) {
+            this.setState({ value: this.props.min })
+        }
     }
 
     onSliderChange(value) {
         _.set(this.state, `container.${this.props.fieldName}`, value);
-        this.setState(this.state);
-        if (this.props.onUpdate) {
-            this.props.onUpdate(this.state.container);
-        }
+        this.setState({ container: this.state.container, value }, () => {
+            if (this.props.onChange) {
+                this.props.onChange(value);
+            }
+            if (this.props.onUpdate) {
+                this.props.onUpdate(this.state.container);
+            }
+        });
     }
 
     render() {
@@ -90,16 +72,16 @@ class ONumericSlider extends React.Component {
             <Row>
                 {(this.props.label) ? (<h3>{this.props.label}</h3>) : "" }
                 <Col md={8}>
-                    <Slider {...this.props} onChange={this.onSliderChange.bind(this)} value={_.get(this.state, `container.${this.props.fieldName}`, "")} width='75%'/>
+                    <Slider {...this.props} onChange={this.onSliderChange.bind(this)} value={this.state.value} width='75%'/>
                 </Col>
                 <Col md={4}>
                     <Input
                       width='20%'
                       {...this.props}
-                      value={_.get(this.state, `container.${this.props.fieldName}`, "")}
+                      value={this.state.value}
                       onChange={this.onChange.bind(this)}
                       onBlur={this.onBlur.bind(this)}
-                      placeholder={this.props.placeholder ? this.props.placeholder : "Input a number"}
+                      placeholder={this.props.placeholder ? this.props.placeholder : `${this.props.min} to ${this.props.max}`}
                       maxLength="25"
                     />
                 </Col>

@@ -71,7 +71,7 @@ export class GoalCrudService extends AbstractCrudService {
     async listByUserId(userId) {
         const { list, columns } = await this.fetchByField('user_id', userId);
         console.log(list, columns)
-        return list.map((rawGoal) => this.convert(rawGoal)(columns));
+        return list.map((rawGoal) => this.constructor.convert(rawGoal)(columns));
     }
 
     async get(goalId) {
@@ -83,7 +83,7 @@ export class GoalCrudService extends AbstractCrudService {
             .withTexts(data.statement, data.omissions, data.engagement);
     }
 
-    convert(rawGoal) {
+    static convert(rawGoal) {
         return (columns) => {
             const id = this.valueFrom(columns)('id')(rawGoal);
             const userId = this.valueFrom(columns)('user_id')(rawGoal);

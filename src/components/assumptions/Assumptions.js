@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Affix, Card, Spin } from 'antd';
-import Persona from './../../core/Persona';
+import Persona from 'core/Persona';
+import Titlebar from 'components/layouts/Titlebar';
 import PersonaForm from './PersonaForm';
 import _ from 'lodash';
 
@@ -48,6 +49,7 @@ class PersonaList extends Component {
     render() {
         return (
             <content>
+                <Titlebar title="Profile" description="Fundamental Assumptions"/>
                 <Spin spinning={this.state.loading}>
                     {_.isEmpty(this.state.personas) ? (<Card onClick={this.addPersona.bind(this)} className="addPersona">Click this to add persona</Card>): ""}
                     {this.state.personas.map((persona, key) => (<PersonaForm key={key} persona={persona} onUpdate={this.onUpdate.bind(this)} onDelete={this.removePersona.bind(this)}></PersonaForm>))}

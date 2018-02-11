@@ -31,7 +31,7 @@ class MainHeader extends Component {
                         </Col>
                         <Col xs={2}  end="xs">
                             <span className="avatar-box">
-                                <Popover placement="bottomRight" title={this.props.user.username} content={<Button onClick={this.onLogout.bind(this)}>Logout</Button>} trigger="click">
+                                <Popover placement="bottomRight" title={this.props.user.username} content={this.getPopoverContent()} trigger="click">
                                     {this.getAvatar()}
                                 </Popover>
                             </span>
@@ -39,13 +39,18 @@ class MainHeader extends Component {
                       </Row>
                       </MediaQuery>
                       <MediaQuery query="(min-width: 768px)">
-                      <Row middle="xs" end="xs">
-                        <Col xs={3} xsOffset={9} middle="xs">
+                      <Row middle="xs" between="xs">
+                        <Col xs={1} start="xs">
+                            <div className="trigger-button">
+                                <Icon type="bars" ref="trigger" onClick={this.onMenuClick.bind(this)} />
+                            </div>
+                        </Col>
+                        <Col xs={3} xsOffset={8} middle="xs" className="end-xs">
                             <span>
                                 Hi {this.props.user.username}!&nbsp;&nbsp;&nbsp;
                             </span>
                             <span className="avatar-box">
-                                <Popover placement="bottomRight" title={this.props.user.username} content={<Button onClick={this.onLogout.bind(this)}>Logout</Button>} trigger="click">
+                                <Popover placement="bottomRight" title={this.props.user.username} content={this.getPopoverContent()} trigger="click">
                                     {this.getAvatar()}
                                 </Popover>
                             </span>
@@ -70,13 +75,30 @@ class MainHeader extends Component {
 
     onLogout() {
         if (this.props.onLogout) {
-            this.props.onLogout(this.props.user);
+            this.props.onLogout(null);
         }
+    }
+
+    getPopoverContent() {
+        return (
+            <Col>
+                <Row>
+                    <Col>
+                        <Link to="/goals">Change Goal</Link>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Button onClick={this.onLogout.bind(this)}>Logout</Button>
+                    </Col>
+                </Row>
+            </Col>
+        );
     }
 
     getAvatar() {
         let props = (this.props.user.avatar) ? { src: this.props.user.avatar } : { icon: "user" };
-        return <Avatar size="large" className="avatar" { ...props }/>;
+        return <Avatar className="avatar" { ...props }/>;
     }
 }
 export default MainHeader;

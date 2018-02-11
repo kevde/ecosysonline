@@ -11,7 +11,7 @@ export default class AbstractCrudService {
         return `${this.api}/${this.tableName}`;
     }
 
-    valueFrom(columnList) {
+    static valueFrom(columnList) {
         return (fieldName) => {
             const index = columnList.indexOf(fieldName);
             return (rawGoal) => rawGoal[index];

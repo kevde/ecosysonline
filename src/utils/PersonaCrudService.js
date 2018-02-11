@@ -114,7 +114,19 @@ export class PersonaCrudService extends AbstractCrudService {
     }
 
     getPersonas(list, columns) {
-        return list.map((rawPersona) => {
+        return list.map((rawPersona) => this.constructor.convert(rawPersona)(columns));
+    }
+
+    getCoreProblems(list, columns) {
+        return list.map((rawCoreProblem) => this.constructor.convertCoreProblem(rawCoreProblem)(columns));
+    }
+
+    getSalesCanvas(list, columns) {
+        return list.map((rawSalesCanvas) => this.constructor.convertSalesCanvas(rawSalesCanvas)(columns));
+    }
+
+    static convert(rawPersona) {
+        return (columns) => {
             const id = this.valueFrom(columns)("id")(rawPersona);
             const goalId = this.valueFrom(columns)("goal_id")(rawPersona);
             const avatar = this.valueFrom(columns)("avatar")(rawPersona);
@@ -142,11 +154,11 @@ export class PersonaCrudService extends AbstractCrudService {
                 .withOtherInfo(marital_status, children, location, quote, job_title, annual_income, education_level, other_info)
                 .withInformationSources(books, magazines, blogs, gurus, other_sources)
                 .withPurchaseProcess(purchase_objections, purchase_role);
-        });
+        };
     }
 
-    getCoreProblems(list, columns) {
-        return list.map((rawCoreProblem) => {
+    static convertCoreProblem(rawCoreProblem) {
+        return (columns) => {
             const id = this.valueFrom(columns)("id")(rawCoreProblem);
             const persona_id = this.valueFrom(columns)("persona_id")(rawCoreProblem);
             const core_goals = this.valueFrom(columns)("core_goals")(rawCoreProblem);
@@ -168,11 +180,11 @@ export class PersonaCrudService extends AbstractCrudService {
                 painPoints: [pain_point_1, pain_point_2, pain_point_3],
                 solutions: [solution_1, solution_2, solution_3],
             };
-        });
+        };
     }
 
-    getSalesCanvas(list, columns) {
-        return list.map((rawSalesCanvas) => {
+    static convertSalesCanvas(rawSalesCanvas) {
+        return (columns) => {
             const id = this.valueFrom(columns)("id")(rawSalesCanvas);
             const persona_id = this.valueFrom(columns)("persona_id")(rawSalesCanvas);
             const trigger = this.valueFrom(columns)("trigger")(rawSalesCanvas);
@@ -180,6 +192,7 @@ export class PersonaCrudService extends AbstractCrudService {
             const conversation = this.valueFrom(columns)("conversation")(rawSalesCanvas);
             const sell = this.valueFrom(columns)("sell")(rawSalesCanvas);
             return { id, persona_id, trigger, action, conversation, sell };
-        });
+        };
     }
+
 }

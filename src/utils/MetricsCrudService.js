@@ -35,12 +35,12 @@ export class MetricsCrudService extends AbstractCrudService {
 
     async listByGoalIdAndType(goalId, type) {
         const { list, columns } = await this.fetchByFields({ 'goal_id': goalId, 'type': type });
-        return list.map((rawMetric) => this.convert(rawMetric)(columns));
+        return list.map((rawMetric) => this.constructor.convert(rawMetric)(columns));
     }
 
-    async listByGoal(goal) {
+    async listRevenuesByGoal(goal) {
         const { list, columns } = await this.fetchByFields({ 'goal_id': goal.id });
-        const metrics = list.map((rawMetric) => this.convert(rawMetric)(columns));
+        const metrics = list.map((rawMetric) => this.constructor.convert(rawMetric)(columns));
         const monthlyMetricGroup = _.groupBy(metrics, (metric) => metric.month.format('YYYY-MM-DD'));
         return _.map(monthlyMetricGroup, (metrics, month) => {
             const impression = _.find(metrics, ['type', 'impressions']);
@@ -53,7 +53,7 @@ export class MetricsCrudService extends AbstractCrudService {
 
     async createOrUpdateMetrics(goal) {
         const { list, columns } = await this.fetchByFields({ 'goal_id': goal.id });
-        const metricValues = list.map((rawMetric) => this.convert(rawMetric)(columns));
+        const metricValues = list.map((rawMetric) => this.constructor.convert(rawMetric)(columns));
         const months = MonthService.getMonths(goal.startDate, goal.endDate);
 
         // reuse all metrics 
@@ -94,7 +94,7 @@ export class MetricsCrudService extends AbstractCrudService {
         return { goal_id: goalId, type, actual, goal, month: month.format('YYYY-MM-DD') };
     }
 
-    convert(rawMetric) {
+    static convert(rawMetric) {
         return (columns) => {
             const id = this.valueFrom(columns)('id')(rawMetric);
             const metricGoalId = this.valueFrom(columns)('goal_id')(rawMetric);

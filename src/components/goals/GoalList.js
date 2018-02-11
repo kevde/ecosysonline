@@ -4,6 +4,7 @@ import { Row, Col } from 'react-flexbox-grid';
 import { Modal, Spin, Card, Switch, Icon } from 'antd';
 import MissionStatement from 'components/goals/steps/MissionStatement';
 import GoalSettingModal from 'components/goals/GoalSettingModal';
+import Titlebar from 'components/layouts/Titlebar';
 import Goal from 'core/Goal';
 const { Meta } = Card;
 
@@ -11,7 +12,7 @@ export default class GoalList extends Component {
     constructor(props) {
         super(props);
         this.crudService = props.crudService;
-        this.state = { goals: [], loading: true }
+        this.state = { goals: [], goalId: props.goalId, loading: true }
     }
 
     async componentWillReceiveProps(nextProps) {
@@ -39,22 +40,19 @@ export default class GoalList extends Component {
     }
 
     getDefaultGoal(goals, goalId) {
-        const potentialGoal = _.find(goals, (goal) => goalId === goal.id);
-        const defaultGoal = (potentialGoal) ? potentialGoal : this.state.currentGoal ? this.state.currentGoal : _.head(goals);
+        const defaultGoal = _.find(goals, (goal) => goalId === goal.id);
         if (defaultGoal) {
             defaultGoal.enabled = true;
-            this.onUpdate(defaultGoal);
         }
         return defaultGoal;
     }
 
     async onSwitchChange(e, goal) {
-        if (e === true) {
+        if (e === true && await this.onUpdate(goal)) {
             this.state.goals.map((g) => g.enabled = false);
             goal.enabled = true;
+            this.setState({ goals: this.state.goals, currentGoal: goal });
         }
-        this.onUpdate(goal);
-        this.setState({ goals: this.state.goals, currentGoal: goal });
     }
 
     async reloadGoals(userId) {
@@ -64,10 +62,13 @@ export default class GoalList extends Component {
         return goals;
     }
 
-    onUpdate(goal) {
+    async onUpdate(goal) {
+        const isSuccess = true;
         if (this.props.onUpdate) {
-            this.props.onUpdate(goal);
+            return await this.props.onUpdate(goal);
         }
+
+        return isSuccess;
     }
 
     openModal(goal) {
@@ -83,6 +84,7 @@ export default class GoalList extends Component {
     render() {
         return (
             <Spin spinning={this.state.loading}>
+                <Titlebar title="Setup Your Default Goal" description="Settings"/>
                 <Row center="md">
                     {this.state.goals.map(goal => this.renderGoal(goal))}
                     {this.renderAddGoal()}

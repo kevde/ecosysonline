@@ -5,6 +5,7 @@ import MetricTable from './MetricTable';
 import { Modal, Spin, Affix } from 'antd';
 import MetricBarGraph from './MetricBarGraph';
 import MonthService from 'components/commons/MonthService';
+import Titlebar from 'components/layouts/Titlebar';
 import { MetricsCrudService } from 'utils/MetricsCrudService';
 import { GoalCrudService } from 'utils/GoalCrudService';
 import * as Messages from 'constants/Messages';
@@ -48,12 +49,12 @@ class MetricForm extends Component {
         let metrics = [];
         let quarterlyMetrics = []
         ''
-        let metricTitle = metricsMap[type];
+        let metricTitle = metricsMap[type] || this.props.metricTitle;
         if (type) {
             metrics = await this.crudService.listByGoalIdAndType(goalId, type);
         } else {
             const goal = await this.goalCrudService.get(goalId)
-            metrics = await this.crudService.listByGoal(goal);
+            metrics = await this.crudService.listRevenuesByGoal(goal);
         }
 
         quarterlyMetrics = MonthService.getQuarterlyMetricValues(metrics);
@@ -67,11 +68,7 @@ class MetricForm extends Component {
             <Spin spinning={this.state.loading}>
             <div ref={(topDiv) => this.topDiv = topDiv}>
                 <MediaQuery query="(min-width: 768px)">
-                      <Affix offsetTop={0}>
-                          <div className="content-title-header">
-                              <h1>{this.state.metricTitle}</h1>
-                          </div>
-                      </Affix>
+                    <Titlebar title={this.state.metricTitle} description="Dashboard & statistics"/>
                 </MediaQuery>
                 <MediaQuery query="(max-width: 768px)">
                       <Affix offsetTop={64}>

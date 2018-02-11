@@ -34,11 +34,11 @@ class App extends Component {
     }
 
     redirectWhenLoggedOut() {
-        return (this.state.user) ? (<MainPage user={this.state.user} />) : (<Redirect to="/" />);
+        return (this.state.user) ? (<MainPage user={this.state.user} onUpdate={this.onUpdate.bind(this)} />) : (<Redirect to="/" />);
     }
 
     renderMainPage() {
-        return (this.state.user) ? (<MainPage user={this.state.user} />) : (<LoginPage user={this.state.user} onUpdate={this.onUpdate.bind(this)} />);
+        return (this.state.user) ? (<MainPage user={this.state.user} onUpdate={this.onUpdate.bind(this)} />) : (<LoginPage user={this.state.user} onUpdate={this.onUpdate.bind(this)} />);
     }
 
     onUpdate(user) {

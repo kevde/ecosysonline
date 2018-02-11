@@ -6,7 +6,12 @@ class User {
         this.username = username;
         this.password = password;
         this.avatar = avatar;
-        this.goals = new Goal();
+        this.goal = null;
+    }
+
+    withGoal(goal) {
+        this.goal = goal;
+        return this;
     }
 }
 

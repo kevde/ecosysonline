@@ -456,8 +456,9 @@ i.anticon {
 
 .ant-layout-header {
     padding: 0;
-    background: aliceblue;
+    background: white;
     line-height: initial !important;
+    height: 50px;
 }
 
 .ant-layout-footer {
@@ -468,6 +469,29 @@ i.anticon {
     align-items: end;
     text-align: center;
     vertical-align: bottom;
+}
+
+.title-bar .row {
+    margin: 0px;
+}
+
+.title-bar {
+    color: #555555;
+    padding: 10px;
+    box-shadow: 1px 1px 1px #ddd;
+    background-color: #f5f7f7;
+}
+
+.title-bar h1.title {
+    color: #555555;
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+    /* padding-left: 1rem; */
+}
+
+.title-bar .description {
+    color: #bbb;
+    /* padding-left: 1rem; */
 }
 
 .trigger-button .anticon {

@@ -40,7 +40,7 @@ class MetricBarGraph extends Component {
                   <Tooltip />
                   <ReferenceLine x="Page C" stroke="green" label="Min PAGE" />
                   <Area type="monotone" dataKey="goal" fillOpacity={1} stroke="#4da6a1" strokeWidth={2} fill="#86d3ce" />
-                  <Area type="monotone" dataKey="actual" fillOpacity={1} stroke="#874ea8" strokeWidth={2} fill="#3993bb" />
+                  <Area type="monotone" dataKey="actual" fillOpacity={1} stroke="#0e4d92" strokeWidth={2} fill="#3993bb" />
                 </AreaChart>
               </ResponsiveContainer>
             </Card>

@@ -42,6 +42,7 @@ class GoalSettingModal extends Component {
                     title="Achieve" 
                     container={this.state.goal} 
                     fieldName='statement' 
+                    required={true}
                     label='What do you want to achieve with your company?'/>
                 <Row
                     title="Goal">
@@ -78,6 +79,7 @@ class GoalSettingModal extends Component {
                             container={this.state.goal} 
                             fieldName='productPrice' 
                             prefix="$"
+                            min={0}
                             label='What is the average price of your product?'/>
                     </Col>
                 </Row>

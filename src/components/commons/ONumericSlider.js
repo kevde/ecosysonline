@@ -34,10 +34,12 @@ class ONumericSlider extends React.Component {
 
     onChange(e) {
         let { value } = e.target;
-        const reg = /^-?(\d+)((?:(\.)(\d+))|(?:\.)|)|(?:\-)/;
+        const reg = /(?:^(\-|)\d{1,}((?:\.\d{1,})|\.|)$)|(?:^\-$)|(?:^$)/;
 
         if (reg.test(value) || _.isEmpty(value)) {
             this.setState({ value });
+        } else {
+            e.preventDefault();
         }
     }
 
@@ -49,9 +51,14 @@ class ONumericSlider extends React.Component {
             if (this.props.max && this.props.max < value) {
                 value = this.props.max;
             }
+            if (this.props.min && this.props.min > value) {
+                value = this.props.min;
+            }
             this.onSliderChange(value);
         } else if (_.isEmpty(value)) {
             this.setState({ value: this.props.min })
+        } else {
+            e.preventDefault();
         }
     }
 
@@ -68,11 +75,13 @@ class ONumericSlider extends React.Component {
     }
 
     render() {
+        const value = _.get(this.state, `container.${this.props.fieldName}`);
+
         return (
             <Row>
                 {(this.props.label) ? (<h3>{this.props.label}</h3>) : "" }
                 <Col md={8}>
-                    <Slider {...this.props} onChange={this.onSliderChange.bind(this)} value={this.state.value} width='75%'/>
+                    <Slider {...this.props} onChange={this.onSliderChange.bind(this)} value={value} width='75%'/>
                 </Col>
                 <Col md={4}>
                     <Input

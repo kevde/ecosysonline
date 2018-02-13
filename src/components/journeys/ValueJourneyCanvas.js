@@ -38,6 +38,7 @@ export default class ValueJourneyCanvas extends Component {
 
     render() {
         return (
+            <div className="journey-canvas-container">
             <Stage className="journey-canvas" width={1400} height={1100} onClick={this.onClick.bind(this)}>
                 <Layer>
                   <ValueJourneyTemplate />
@@ -55,6 +56,7 @@ export default class ValueJourneyCanvas extends Component {
                             <Text  x={1010} y={210} height={145} width={340} text={this.state.journey.promote}/>
                 </Layer>
           </Stage>
+          </div>
         );
     }
 }

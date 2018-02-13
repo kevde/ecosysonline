@@ -87,10 +87,6 @@
     background-color: darkgray;
 }
 
-input {
-    margin: 0.5rem auto;
-}
-
 .ant-card-head-title {
     padding: 1rem autp;
 }
@@ -426,6 +422,12 @@ i.anticon {
 .ant-card-meta {
     width: 100%;
     overflow: auto;
+}
+
+.journey-canvas-container {
+    position: relative;
+    display: inherit;
+    padding-top: 77%;
 }
 
 .journey-canvas .konvajs-content {

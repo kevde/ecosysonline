@@ -2,70 +2,51 @@ import React from 'react';
 import { Input, Tooltip } from 'antd';
 import _ from 'lodash';
 
-function formatNumber(value) {
-    value += '';
-    const list = value.split('.');
-    const prefix = list[0].charAt(0) === '-' ? '-' : '';
-    let num = prefix ? list[0].slice(1) : list[0];
-    let result = '';
-    while (num.length > 3) {
-        result = `,${num.slice(-3)}${result}`;
-        num = num.slice(0, num.length - 3);
-    }
-    if (num) {
-        result = num + result;
-    }
-    return `${prefix}${result}${list[1] ? `.${list[1]}` : ''}`;
-}
-
 class ONumericInput extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { container: props.container };
+        this.state = { container: props.container, error: false, exceed: 0 };
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ container: nextProps.container });
+        this.setState({ container: nextProps.container, error: false, exceed: 0 });
     }
 
     onChange(e) {
         let { value } = e.target;
-
-        if (_.startsWith(value, "0") && value.length > 1) {
-            value = _.trimStart(value, "0");
-        }
-
-        if (this.isValueValid(value)) {
-            const modifiedValue = (value !== "" && !_.endsWith(value, '.')) ? parseFloat(value) : value;
-            _.set(this.state, `container.${this.props.fieldName}`, modifiedValue);
-            this.setState(this.state);
-            if (this.props.onChange) {
-                this.props.onChange(e);
-            }
+        const reg = /(?:^(\-|)\d{1,}((?:\.\d{1,})|\.|)$)|(?:^\-$)|(?:^$)/;
+        const container = _.set(this.state.container, this.props.fieldName, value);
+        if (reg.test(value) || _.isEmpty(value)) {
+            this.setState({ container });
         } else {
-            if (value.charAt(value.length - 1) === '.' || value === '-') {
-                e.target.value = value.slice(0, -1);
-            }
-
-            e.target.value = _.get(this.state, `container.${this.props.fieldName}`, "");
-            e.stopPropagation();
-        }
-    }z
-
-    onBlur(e) {
-        const { value } = e.target;
-        if (value.charAt(value.length - 1) === '.' || value === '-') {
-            e.target.value = value.slice(0, -1);
-        }
-        if (this.props.onUpdate) {
-            this.props.onUpdate(this.state.container);
+            e.preventDefault();
         }
     }
 
-    isValueValid(value) {
-        const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
-        return (!isNaN(value) && reg.test(value)) || value === '' || value === '-';
+    onBlur(e) {
+        let { value } = e.target;
+        if (value.charAt(value.length - 1) === '.' || value === '-') {
+            e.target.value = value.slice(0, -1);
+        }
+
+        value = parseFloat(value);
+
+        if (!_.isNull(this.props.min) & this.props.min > value) {
+            this.setState({ error: true, exceed: -1 });
+            return;
+        }
+
+        if (!_.isNull(this.props.max) & this.props.max < value) {
+            this.setState({ error: true, exceed: -1 });
+            return;
+        }
+        
+        this.setState({ error: false, exceed: 0 });
+
+        if (this.props.onUpdate) {
+            this.props.onUpdate(this.state.container);
+        }
     }
 
     render() {
@@ -75,11 +56,16 @@ class ONumericInput extends React.Component {
                 <Input
                   {...this.props}
                   value={_.get(this.state, `container.${this.props.fieldName}`, "")}
+                  style={{ borderColor: (this.state.error) ? 'red' : '' }}
                   onChange={this.onChange.bind(this)}
                   onBlur={this.onBlur.bind(this)}
                   placeholder={this.props.placeholder ? this.props.placeholder : "Input a number"}
                   maxLength="25"
                 />
+                <div style={{display: (this.state.error) ?  '' : 'none'}}>
+                {this.state.exceed === 1 ? `Value should not exceed ${_.compact([this.props.prefix, `${this.props.max}`, this.props.suffix]).join('')}` : '' }
+                {this.state.exceed === -1 ? `Value should not go below ${_.compact([this.props.prefix, `${this.props.min}`, this.props.suffix]).join('')}` : '' }
+                </div>
             </div>
         );
     }

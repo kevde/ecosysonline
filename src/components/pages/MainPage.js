@@ -12,6 +12,7 @@ import LoginForm from 'components/login/LoginForm';
 import RegisterForm from 'components/login/RegisterForm';
 import MonthService from 'components/commons/MonthService';
 import Dashboard from 'components/dashboard/Dashboard';
+import PersonaForm from 'components/assumptions/PersonaForm';
 import { GoalCrudService, PersonaCrudService, MetricsCrudService, JourneyCrudService, UserCrudService } from 'utils/CrudService';
 import _ from 'lodash';
 
@@ -46,6 +47,7 @@ class MainPage extends Component {
                           <Route exact={true} path="/journeys/:goalId"  onEnter={this.changeClassName.bind(this)} render={(props) => <ValueJourneyWorksheet {...props} goal={this.state.user.goals} crudService={this.journeyCrudService} /> } />
                           <Route exact={true} path="/forecast/:type/:goalId" render= {() => <MetricForm isEditable={true} /> } />
                           <Route exact={true} path="/revenue/:goalId" render={(props) => <MetricForm {...props} metricTitle="Total Revenues"/> } />
+                          <Route exact={true} path="/persona/:personaId" render={(props) => <PersonaForm {...props} /> } />
                           {this.checkDefaultGoal()}
                         </Content>
                     </Layout>

@@ -27,6 +27,7 @@ class App extends Component {
                   <Route path="/journeys"  render={(props) => this.redirectWhenLoggedOut() } />
                   <Route path="/forecast"  render={(props) => this.redirectWhenLoggedOut() } />
                   <Route path="/revenue"  render={(props) => this.redirectWhenLoggedOut() } />
+                  <Route path="/persona"  render={(props) => this.redirectWhenLoggedOut() } />
                 </Switch>
               </div>
             </Router>

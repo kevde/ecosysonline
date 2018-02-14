@@ -4,12 +4,12 @@ import { Metrics, MetricValue, QuarterMetricValue } from 'core/Metrics';
 
 class MonthService {
     getMonths(start, end) {
-        let startDate = moment(start);
-        let endDate = moment(end);
+        let startDate = moment(start).clone().date(1);
+        let endDate = moment(end).clone().date(1);
         endDate.subtract(1, "month");
 
         let month = moment(startDate);
-        let dates = [];
+        let dates = [startDate];
         while (month <= endDate) {
             month.add(1, "month");
             dates.push(month.clone().date(1));

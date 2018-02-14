@@ -12,6 +12,7 @@ class MainHeader extends Component {
     state = { menuClicked: false };
 
     render() {
+        const username = _.get(this.props.user,'username');
         return (
             <Affix>
                 <Header>
@@ -31,7 +32,7 @@ class MainHeader extends Component {
                         </Col>
                         <Col xs={2}  end="xs">
                             <span className="avatar-box">
-                                <Popover placement="bottomRight" title={this.props.user.username} content={this.getPopoverContent()} trigger="click">
+                                <Popover placement="bottomRight" title={username} content={this.getPopoverContent()} trigger="click">
                                     {this.getAvatar()}
                                 </Popover>
                             </span>
@@ -47,10 +48,10 @@ class MainHeader extends Component {
                         </Col>
                         <Col xs={3} xsOffset={8} middle="xs" className="end-xs">
                             <span>
-                                Hi {this.props.user.username}!&nbsp;&nbsp;&nbsp;
+                                Hi {username}!&nbsp;&nbsp;&nbsp;
                             </span>
                             <span className="avatar-box">
-                                <Popover placement="bottomRight" title={this.props.user.username} content={this.getPopoverContent()} trigger="click">
+                                <Popover placement="bottomRight" title={username} content={this.getPopoverContent()} trigger="click">
                                     {this.getAvatar()}
                                 </Popover>
                             </span>
@@ -89,6 +90,11 @@ class MainHeader extends Component {
                 </Row>
                 <Row>
                     <Col>
+                        <Link to="/users">Show Users</Link>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
                         <Button onClick={this.onLogout.bind(this)}>Logout</Button>
                     </Col>
                 </Row>
@@ -97,7 +103,8 @@ class MainHeader extends Component {
     }
 
     getAvatar() {
-        let props = (this.props.user.avatar) ? { src: this.props.user.avatar } : { icon: "user" };
+        let avatar = _.get(this.props.user, 'avatar');
+        let props = (avatar) ? { src: avatar } : { icon: "user" };
         return <Avatar className="avatar" { ...props }/>;
     }
 }

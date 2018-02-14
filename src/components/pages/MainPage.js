@@ -13,6 +13,7 @@ import RegisterForm from 'components/login/RegisterForm';
 import MonthService from 'components/commons/MonthService';
 import Dashboard from 'components/dashboard/Dashboard';
 import PersonaForm from 'components/assumptions/PersonaForm';
+import UserList from 'components/users/UserList';
 import { GoalCrudService, PersonaCrudService, MetricsCrudService, JourneyCrudService, UserCrudService } from 'utils/CrudService';
 import _ from 'lodash';
 
@@ -30,7 +31,7 @@ class MainPage extends Component {
         this.personaCrudService = new PersonaCrudService();
         this.metricsCrudService = new MetricsCrudService();
         this.journeyCrudService = new JourneyCrudService();
-        this.state = { user: props.user, collapsed: true, currentGoalId: _.get(props.user.goal, 'id', null) }
+        this.state = { user: props.user, collapsed: true, currentGoalId: _.get(props.user, 'goal.id', null) }
         this.basename = props.basename;
     }
 
@@ -48,12 +49,13 @@ class MainPage extends Component {
                           <Route exact={true} path="/forecast/:type/:goalId" render= {() => <MetricForm isEditable={true} /> } />
                           <Route exact={true} path="/revenue/:goalId" render={(props) => <MetricForm {...props} metricTitle="Total Revenues"/> } />
                           <Route exact={true} path="/persona/:personaId" render={(props) => <PersonaForm {...props} /> } />
-                          {this.checkDefaultGoal()}
+                          <Route exact={true} path="/users/" render={(props) => <UserList {...props} /> } />
                         </Content>
                     </Layout>
               </Layout>
         );
     }
+                          // {this.checkDefaultGoal()}
 
     onMenuClick(collapsed) {
         this.setState({ collapsed });
@@ -71,7 +73,7 @@ class MainPage extends Component {
     }
 
     checkDefaultGoal() {
-        return _.isEmpty(this.state.user.goal) ? <Redirect to="/goals" /> : '';
+        return _.get(this.state.user, 'goal') ? <Redirect to="/goals" /> : '';
     }
 
     async setDefaultGoal(goal) {

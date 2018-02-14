@@ -89,7 +89,7 @@ class Goal {
     }
 
     get totalSales1() {
-        return this.totalLeads * percent(this.ctr.closerate);
+        return Math.round(this.totalLeads * percent(this.ctr.closerate));
     }
 
     get totalRevenues() {

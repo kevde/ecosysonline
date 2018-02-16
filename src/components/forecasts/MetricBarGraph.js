@@ -61,7 +61,6 @@ class MetricBarGraph extends Component {
             <RadioGroup ref={(mode) => this.viewMode = mode} defaultValue="monthly" size="large" onChange={this.changeMode.bind(this)}>
             <RadioButton value="monthly">Monthly</RadioButton>
             <RadioButton value="quarterly">Quarterly</RadioButton>
-            <RadioButton value="yearly">Yearly</RadioButton>
           </RadioGroup>
         );
     }

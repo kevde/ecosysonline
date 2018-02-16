@@ -69,15 +69,15 @@
     min-height: 100vh;
 }
 
-.ant-menu {
+.left-bar .ant-menu {
     background: none;
 }
 
-.ant-menu a {
+.left-bar .ant-menu a {
     color: white;
 }
 
-.ant-menu-item-selected {
+.left-bar .ant-menu-item-selected {
     background-color: #00aeff !important;
 }
 
@@ -173,6 +173,11 @@
 
 .row .ant-card {
     min-height: 100%;
+}
+
+.stat-header {
+    text-align: center;
+    font-size: large;
 }
 
 .stat-box {
@@ -415,9 +420,14 @@ i.anticon {
     border-radius: 3rem;
 }
 
+
+
+
+
+/*
 .content [class^="col-"] {
     margin-top: 1rem;
-}
+}*/
 
 .ant-card-meta {
     width: 100%;
@@ -510,6 +520,41 @@ img.main-logo {
     margin: auto 20%;
 }
 
+.user-avatar,
+.user-fullname {
+    display: inline-flex;
+    align-items: center;
+}
+
+.user-cell {
+    display: inline-flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.rt-thead.-header {
+    font-size: 1.2rem;
+    padding: 0.5rem;
+}
+
+.user-revenue {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #eb7b45;
+}
+
+.user-list {
+    color: #8997a1;
+    font-size: 1rem;
+}
+
+.user-list .rt-td {
+    border: none;
+}
+
+
 
 
 /*md*/
@@ -580,12 +625,11 @@ img.main-logo {
     .content-header-title {
         padding: 10px;
     }
+
+    .user-list .rt-tr-group {
+        margin: auto 1rem;
+    }
 }
-
-
-
-
-
 /*xs*/
 
 @media only screen and (max-width: 768px) {
@@ -606,7 +650,7 @@ img.main-logo {
 
     .ant-layout-header {
         padding: 0;
-        background: rgba(0, 0, 0, 0.5);
+        background: #1c2b36;
     }
 
     .journey-card {
@@ -673,6 +717,21 @@ img.main-logo {
         background: -o-linear-gradient(top, #fff 80%, rgba(255, 255, 255, 0));
         background: linear-gradient(180deg, #fff 80%, rgba(255, 255, 255, 0));
         padding: 10px;
+    }
+
+    .stat-box {
+        width: calc(50% - 1rem);
+    }
+
+    .stat-box.stat-revenue {
+        width: calc(100% - 1rem);
+    }
+    .stat-description {
+        font-size: 0.8rem;
+    }
+
+    .stat-value {
+        font-size: 6vw;
     }
 }
 

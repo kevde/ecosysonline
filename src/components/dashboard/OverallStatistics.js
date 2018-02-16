@@ -15,14 +15,14 @@ export default class OverallStatistics extends Component {
     render() {
         const revenue = this.state.statistics;
         const month = _.get(revenue, `month`);
-        const impression = _.get(revenue, `impression.actual` || 0);
-        const trafficCtr = _.get(revenue, `trafficCtr.actual` || 0);
-        const optinCtr = _.get(revenue, `optinCtr.actual` || 0);
-        const closerateCtr = _.get(revenue, `closerateCtr.actual` || 0);
+        const impression = _.get(revenue, `impression.goal` || 0);
+        const trafficCtr = _.get(revenue, `trafficCtr.goal` || 0);
+        const optinCtr = _.get(revenue, `optinCtr.goal` || 0);
+        const closerateCtr = _.get(revenue, `closerateCtr.goal` || 0);
         return (
             <Row>
-	    	<Col md={12}>
-	    		Target for {month ? month.format('MMMM YYYY') : ''}
+	    	<Col md={12} className="stat-header">
+	    		{month ? month.format('MMMM YYYY') : ''}
 	    	</Col>
 	    	<Col md={12}>
 		    	<div className="stat-box stat-feedbacks">
@@ -42,7 +42,7 @@ export default class OverallStatistics extends Component {
 		    		<div className="stat-description">Close Rate</div>
 		    	</div>
 		    	<div className="stat-box stat-revenue">
-		    		<div className="stat-value">$ {(revenue) ? revenue.getTotalRevenues('actual') : 0}</div>
+		    		<div className="stat-value">$ {(revenue) ? revenue.getTotalRevenues('goal') : 0}</div>
 		    		<div className="stat-description">Revenue</div>
 		    	</div>
 	    	</Col>

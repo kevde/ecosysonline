@@ -49,7 +49,7 @@ class Sidebar extends Component {
     renderContents() {
         const goalId = this.state.goalId;
         return (
-              <div>
+              <div className="left-bar">
                 <div className="logo">
                 <MediaQuery query="(min-width: 768px)">
                   <img src={`${process.env.PUBLIC_URL}/logo.png`} width="100%"/>

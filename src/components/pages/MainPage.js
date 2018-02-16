@@ -50,12 +50,12 @@ class MainPage extends Component {
                           <Route exact={true} path="/revenue/:goalId" render={(props) => <MetricForm {...props} metricTitle="Total Revenues"/> } />
                           <Route exact={true} path="/persona/:personaId" render={(props) => <PersonaForm {...props} /> } />
                           <Route exact={true} path="/users/" render={(props) => <UserList {...props} /> } />
+                          {this.checkDefaultGoal()}
                         </Content>
                     </Layout>
               </Layout>
         );
     }
-                          // {this.checkDefaultGoal()}
 
     onMenuClick(collapsed) {
         this.setState({ collapsed });

@@ -3,6 +3,7 @@ import { Layout, Menu, Breadcrumb, Affix, Avatar, Popover, Button, Icon } from '
 import { Row, Col } from 'react-flexbox-grid';
 import { Link } from 'react-router-dom';
 import MediaQuery from 'react-responsive';
+import UserMenu from './UserMenu';
 import _ from 'lodash';
 
 const { Header } = Layout;
@@ -82,23 +83,7 @@ class MainHeader extends Component {
 
     getPopoverContent() {
         return (
-            <Col>
-                <Row>
-                    <Col>
-                        <Link to="/goals">Change Goal</Link>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <Link to="/users">Show Users</Link>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <Button onClick={this.onLogout.bind(this)}>Logout</Button>
-                    </Col>
-                </Row>
-            </Col>
+            <UserMenu/>
         );
     }
 

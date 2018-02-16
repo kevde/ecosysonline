@@ -75,7 +75,7 @@ class RevenueMetricValue {
     }
 
     getTotalRevenues(valueType) {
-        return this.getTotalSales(valueType) * this.productPrice;
+        return Number(this.getTotalSales(valueType) * this.productPrice).toFixed(2);
     }
 }
 

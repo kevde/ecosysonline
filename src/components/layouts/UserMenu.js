@@ -8,12 +8,18 @@ import _ from 'lodash';
 export default class UserMenu extends Component {
     constructor(props) {
         super(props);
-        this.state = { userId: _.get(props, 'user.id') };
+        this.state = {
+            userId: _.get(props, 'user.id'),
+            role: _.get(props, 'user.role')
+        };
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.user) {
-            this.setState({ userId: _.get(nextProps, 'user.id') });
+            this.setState({
+                userId: _.get(nextProps, 'user.id'),
+                role: _.get(nextProps, 'user.role')
+            });
         }
     }
 
@@ -30,11 +36,15 @@ export default class UserMenu extends Component {
                       <Icon type="star-o" />My Goals
                     </Link>
                 </Menu.Item>
+                {
+                (this.state.role === 'admin') ?
                 <Menu.Item key="users-3">
                     <Link to="/users">
                       <Icon type="usergroup-add" />Users
                     </Link>
                 </Menu.Item>
+                : ''
+                }
                 <Menu.Item key="logout-4">
                     <Link to="/logout">
                       <Icon type="logout" />Logout

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
-import { Modal, Input, Button, notification, Alert, Form, Radio } from 'antd';
+import { Modal, Input, Button, notification, Alert, Form } from 'antd';
 import MonthRangePicker from 'components/commons/MonthRangePicker';
 import ONumericInput from 'components/commons/ONumericInput';
 import ONumericSlider from 'components/commons/ONumericSlider';
@@ -11,13 +11,12 @@ import _ from 'lodash';
 import * as Messages from 'constants/Messages';
 import { UserCrudService, MetricsCrudService } from 'utils/CrudService';
 
-class AccountEditModal extends Component {
+class AccountCreateModal extends Component {
     constructor(props) {
         super(props);
         this.crudService = new UserCrudService();
         this.state = {
             user: props.user,
-            currentUser: props.currentUser,
             visible: false
         };
     }
@@ -31,12 +30,12 @@ class AccountEditModal extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.user) {
-            this.setState({ user: nextProps.user, currentUser: nextProps.currentUser });
+            this.setState({ user: nextProps.user });
         }
     }
 
     render() {
-        const EditForm = Form.create({})(this.CustomForm.bind(this));
+        const CreateForm = Form.create({})(this.CustomForm.bind(this));
         return (
             <Modal
             visible={this.state.visible}
@@ -45,7 +44,7 @@ class AccountEditModal extends Component {
             width="50%"
             footer={null}
             >
-            <EditForm/>
+            <CreateForm/>
         </Modal>
         );
     }
@@ -55,40 +54,25 @@ class AccountEditModal extends Component {
         return (
             <Form>
                 <Form.Item>
-                <Row>
-                    <Col md={2} mdOffset={5}>
-                        <OImageUpload 
-                            container={this.state.user} 
-                            fieldName="avatar" 
-                            onSave={this.updatePhoto.bind(this)}
-                            folder="account"/>
-                    </Col>
-                </Row>
-                </Form.Item>
-                <Form.Item>
-                    <OTextField  
-                        container={this.state.user} 
-                        fieldName='username'
-                        disabled={true}
-                        label='Username'/>
-                </Form.Item>
-                <Form.Item>
                     {this.renderWithValidation(form,
                     <OTextField  
                         container={this.state.user} 
-                        value={this.state.user.firstname}
-                        fieldName='firstname' 
-                        rules={[{ required: true, message: 'Please input your first name' }]}
-                        label='First Name'/>
+                        fieldName='username' 
+                        rules={[{ required: true, message: 'Please input your username' }]}
+                        label='Username'/>
                     )}
                 </Form.Item>
                 <Form.Item>
                     {this.renderWithValidation(form,
                     <OTextField  
                         container={this.state.user} 
-                        fieldName='lastname' 
-                        rules={[{ required: true, message: 'Please input your last name' }]}
-                        label='Last Name'/>
+                        fieldName='password'
+                        type="password"
+                        rules={[
+                        	{ required: true, message: 'Please input your password' },
+                         	// { pattern: /\d{6, 12}/, message: 'Password should be from 6 to 12 characters only'}
+						]}
+                        label='Password'/>
                     )}
                 </Form.Item>
                 <Form.Item>
@@ -100,35 +84,22 @@ class AccountEditModal extends Component {
                         label='E-mail'/>
                     )}
                 </Form.Item>
-                {
-                (_.get(this.state, 'currentUser.id') !== this.state.userId && _.get(this.state, 'currentUser.role') === 'admin') ?
-                <Form.Item>
-                    <Radio.Group defaultValue={this.state.user.role || 'member'} size="large" onChange={this.changeRole.bind(this)}>
-                        <Radio.Button value="admin">Admin</Radio.Button>
-                        <Radio.Button value="member">Member</Radio.Button>
-                    </Radio.Group>
-                </Form.Item>
-                : ''
-                }
                 <Button type="primary" onClick={this.submitChanges.bind(this, form)}>Submit</Button>
             </Form>
         );
     }
 
-    changeRole(e) {
-        this.state.user.role = e.target.value;
-        this.setState({ user: this.state.user });
-    }
-
     async submitChanges(form) {
         form.validateFields(async(err) => {
-            if (!err && _.get(this.state, 'user.id')) {
-                const isSuccessfull = await this.crudService.updateDetails(this.state.user);
-                if (isSuccessfull) {
+            if (!err) {
+                const userId = await this.crudService.create(this.state.user);
+                if (userId) {
                     this.hideModal();
                 } else {
                     notification.open({ message: 'User not updated' });
                 }
+            } else {
+                console.log(err);
             }
         }, );
     }
@@ -164,4 +135,4 @@ class AccountEditModal extends Component {
     }
 }
 
-export default AccountEditModal;
+export default AccountCreateModal;

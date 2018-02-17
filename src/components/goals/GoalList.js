@@ -32,11 +32,13 @@ export default class GoalList extends Component {
     }
 
     async saveGoal(goal) {
-        this.setState({ loading: true });
-        const goals = await this.reloadGoals(this.props.user.id);
-        const currentGoal = this.getDefaultGoal(goals, goal.id);
-        this.setState({ goals, currentGoal, loading: false });
-        this.onUpdate(goal);
+        if (goal) {
+            this.setState({ loading: true });
+            const goals = await this.reloadGoals(this.props.user.id);
+            const currentGoal = this.getDefaultGoal(goals, goal.id);
+            this.setState({ goals, currentGoal, loading: false });
+            this.onUpdate(goal);
+        }
     }
 
     getDefaultGoal(goals, goalId) {

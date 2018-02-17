@@ -1,10 +1,11 @@
 import Goal from './Goal';
 
 class User {
-    constructor(id, username, avatar) {
+    constructor(id, username, avatar, role) {
         this.id = id;
         this.username = username;
         this.avatar = avatar;
+        this.role = role;
     }
 
     withGoal(goal) {
@@ -12,9 +13,8 @@ class User {
         return this;
     }
 
-    withPassword(password, role) {
+    withPassword(password) {
         this.password = password;
-        this.role = role;
         return this;
     }
 

@@ -26,11 +26,17 @@ export class PersonaCrudService extends AbstractCrudService {
     }
 
     async updatePhoto(personaId, avatarBinary) {
+        let updateResult;
+        let avatarUrl;
         const formData = new FormData();
         const blob = await this.toBlob(avatarBinary);
         formData.append('avatarFile', blob, `avatar-${personaId}.png`);
         const result = await axios.post(process.env.REACT_APP_UPLOAD_API, formData);
-        return result;
+        if (result.data) {
+            avatarUrl = `${process.env.REACT_APP_PHOTO_BASE}/${result.data}`;
+            updateResult = await axios.put(`${this.apiUrl}/${personaId}`, { avatar: avatarUrl });
+        }
+        return (updateResult.data === 1) ? avatarUrl : '';
     }
 
     toBlob(canvas) {

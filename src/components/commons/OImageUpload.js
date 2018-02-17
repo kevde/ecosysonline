@@ -105,9 +105,9 @@ class OImageUpload extends Component {
     async onSave() {
         if (this.props.onSave) {
             this.setState({ loading: true });
-            let httpResponse = await this.props.onSave(this.state.container, this.refs.cropper.getCroppedCanvas());
-            if (httpResponse) {
-                this.state.container[this.props.fieldName] = `${process.env.REACT_APP_PHOTO_BASE}/${httpResponse.data}`;
+            let photoURL = await this.props.onSave(this.state.container, this.refs.cropper.getCroppedCanvas());
+            if (photoURL) {
+                this.state.container[this.props.fieldName] = photoURL;
                 this.refs.imageContainer.src = `${this.state.container[this.props.fieldName]}?time=${new Date().getTime()}`;
                 this.setState({ container: this.state.container });
                 this.setState({ modalVisible: false }, () => console.log("closed"));

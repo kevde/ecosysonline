@@ -5,8 +5,8 @@ import _ from 'lodash';
 class OTextField extends Component {
 
     constructor(props) {
-        super(props);
-        this.state = { container: props.container };
+        super({ value: _.get(props.container, props.fieldName, ""), ...props });
+        this.state = { container: props.container, value: this.props.value };
     }
 
     componentWillReceiveProps(nextProps) {
@@ -25,9 +25,13 @@ class OTextField extends Component {
 
     changeField(event) {
         _.set(this.state.container, this.props.fieldName, event.target.value);
-        this.setState({ container: this.state.container });
+        this.value = event.target.value;
+        this.setState({ container: this.state.container, value: this.value });
+        if (this.props.onChange) {
+            this.props.onChange(this.value);
+        }
     }
-    
+
     focus() {
         this.refs.textField.focus();
     }

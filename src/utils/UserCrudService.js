@@ -10,8 +10,9 @@ export class UserCrudService extends AbstractCrudService {
         super('users');
     }
 
-    create(user) {
-        return axios.post(this.apiUrl, user);
+    async create(user) {
+        const { data } = await axios.post(this.apiUrl, user);
+        return data;
     }
 
     async get(id) {
@@ -19,12 +20,18 @@ export class UserCrudService extends AbstractCrudService {
         const userId = _.get(response, 'data.id');
         const username = _.get(response, 'data.username');
         const avatar = _.get(response, 'data.avatar');
+        const role = _.get(response, 'data.role');
         const firstname = _.get(response, 'data.firstname');
         const lastname = _.get(response, 'data.lastname');
         const email = _.get(response, 'data.email');
         const lastActivity = _.get(response, 'data.last_login');
-        return new User(userId, username, avatar)
+        return new User(userId, username, avatar, role)
             .withUserDetails(firstname, lastname, email);
+    }
+
+    async delete(userId) {
+        const { data } = await axios.delete(`${this.apiUrl}/${userId}`);
+        return (data === 1);
     }
 
     async changeDefaultGoal(userId, goalId) {
@@ -67,6 +74,20 @@ export class UserCrudService extends AbstractCrudService {
         return (data === 1);
     }
 
+    async updateDetails(user) {
+        const { firstname, lastname, email, role } = user;
+        const { data } = await axios.put(`${this.apiUrl}/${user.id}`, { firstname, lastname, email, role });
+        return (data === 1);
+    }
+
+    async updateActiveStatus(userId, toggledActive) {
+        try {
+            const { data } = await axios.put(`${this.apiUrl}/${userId}`, { active: toggledActive });
+            return (data === 1);
+        } catch (e) {
+            return false;
+        }
+    }
 
     async updatePhoto(userId, avatarBinary) {
         let updateResult;
@@ -98,8 +119,8 @@ export class UserCrudService extends AbstractCrudService {
             const email = this.valueFrom(columns)('email')(rawUser);
             const active = this.valueFrom(columns)('active')(rawUser);
             const lastActivity = moment(this.valueFrom(columns)('last_login')(rawUser), "YYYY-MM-DD");
-            return new User(userId, name, avatar)
-                .withPassword(pwd, role)
+            return new User(userId, name, avatar, role)
+                .withPassword(pwd)
                 .withUserDetails(firstname, lastname, email)
                 .withStatus(active, lastActivity);
         };

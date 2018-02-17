@@ -72,8 +72,7 @@ export default class GoalList extends Component {
     }
 
     openModal(goal) {
-        this.setState({ currentGoal: goal });
-        this.refs.goalSettingModal.showModal();
+        this.refs.goalSettingModal.showModal(goal);
     }
 
     createGoal() {
@@ -89,7 +88,7 @@ export default class GoalList extends Component {
                     {this.state.goals.map(goal => this.renderGoal(goal))}
                     {this.renderAddGoal()}
                 </Row>
-                <GoalSettingModal goal={this.state.currentGoal} ref="goalSettingModal" onUpdate={(goal) => this.saveGoal(goal)} />
+                <GoalSettingModal goal={this.state.currentGoal} ref="goalSettingModal" onUpdate={(goal) => this.saveGoal(goal)}  onRevert={(goal) => this.revertGoal(goal)}/>
             </Spin>
         );
     }

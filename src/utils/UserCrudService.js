@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import axios from 'axios';
-import User from 'core/User';
+import User, { UserDetail } from 'core/User';
 import AbstractCrudService from './AbstractCrudService';
 import { GoalCrudService } from './GoalCrudService';
+import moment from 'moment';
 
 export class UserCrudService extends AbstractCrudService {
     constructor() {
@@ -40,6 +41,20 @@ export class UserCrudService extends AbstractCrudService {
         }
 
         return (rawUser) ? this.constructor.convert(rawUser)(userColumns).withGoal(goal) : null;
+    }
+
+    async listBasicUserDetails() {
+        const { data } = await axios.get(`${this.apiUrl}?transform=1&include=goals&columns=id,firstname,lastname,avatar,active,last_login,goals.financial_goal`);
+        if (!_.isEmpty(data.users)) {
+
+            return data.users.map((rawData) => {
+                const date = moment(rawData.last_login, 'YYYY-MM-DD');
+                const revenue = _.get(rawData, 'goals.0.financial_goal', 0);
+                return new UserDetail(rawData.id, `${rawData.firstname} ${rawData.lastname}`, `${rawData.avatar}`, date, rawData.active, revenue);
+            });
+        } else {
+            return [];
+        }
     }
 
     static convert(rawUser) {

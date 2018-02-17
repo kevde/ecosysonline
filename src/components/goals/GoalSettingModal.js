@@ -10,6 +10,8 @@ import OTextArea from 'components/commons/OTextArea';
 import * as Messages from 'constants/Messages';
 import { GoalCrudService, MetricsCrudService } from 'utils/CrudService';
 
+const Confirm = Modal.confirm;
+
 class GoalSettingModal extends Component {
     constructor(props) {
         super(props);
@@ -17,7 +19,8 @@ class GoalSettingModal extends Component {
         this.metricsCrudService = new MetricsCrudService();
         this.state = {
             goal: props.goal,
-            visible: false
+            visible: false,
+            exit: false
         };
     }
 
@@ -32,7 +35,7 @@ class GoalSettingModal extends Component {
             <Modal
             visible={this.state.visible}
             onOk={this.done.bind(this)}
-            onCancel={this.hideModal.bind(this)}
+            onCancel={this.showConfirm.bind(this)}
             className="goal-setting"
             width="50%"
             footer={null}
@@ -188,17 +191,31 @@ class GoalSettingModal extends Component {
 
     }
 
+    showConfirm(e) {
+        e.preventDefault();
+        Confirm({
+            title: "Do you still want to exit without saving?",
+            onOk: () => {
+                this.setState({ visible: false, exit: false }, () => console.log("closed"));
+                this.setState({ goal: this.props.goal }, this.refs.stepBar.reset());
+                this.onUpdate(this.props.goal);
+            },
+            onCancel: () => {},
+            okText: 'Yes',
+            cancelText: 'No'
+        });
+    }
+
     hideModal() {
         if (this.state.goal.goalId) {
             this.done();
         }
-        this.setState({ visible: false }, () => console.log("closed"));
+        this.setState({ visible: false, exit: false }, () => console.log("closed"));
         this.refs.stepBar.reset();
     }
 
-    showModal() {
-
-        this.setState({ visible: true }, () => console.log("opened"));
+    showModal(goal) {
+        this.setState({ goal, visible: true }, () => console.log("opened"));
     }
 
     onUpdate(goal) {

@@ -15,4 +15,15 @@ class User {
     }
 }
 
+export class UserDetail {
+    constructor(id, fullname, avatar, lastActivity, active, revenue) {
+        this.id = id;
+        this.fullname = fullname;
+        this.avatar = avatar;
+        this.lastActivity = lastActivity;
+        this.active = active;
+        this.revenue = revenue;
+    }
+}
+
 export default User;

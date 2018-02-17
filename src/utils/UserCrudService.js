@@ -19,7 +19,12 @@ export class UserCrudService extends AbstractCrudService {
         const userId = _.get(response, 'data.id');
         const username = _.get(response, 'data.username');
         const avatar = _.get(response, 'data.avatar');
-        return new User(userId, username, avatar);
+        const firstname = _.get(response, 'data.firstname');
+        const lastname = _.get(response, 'data.lastname');
+        const email = _.get(response, 'data.email');
+        const lastActivity = _.get(response, 'data.last_login');
+        return new User(userId, username, avatar)
+            .withUserDetails(firstname, lastname, email);
     }
 
     async changeDefaultGoal(userId, goalId) {
@@ -57,13 +62,46 @@ export class UserCrudService extends AbstractCrudService {
         }
     }
 
+    async updateActivity(userId) {
+        const { data } = await axios.put(`${this.apiUrl}/${userId}`, { last_login: moment().format("YYYY-MM-DD") });
+        return (data === 1);
+    }
+
+
+    async updatePhoto(userId, avatarBinary) {
+        let updateResult;
+        let avatarUrl;
+        const formData = new FormData();
+        const blob = await this.toBlob(avatarBinary);
+        formData.append('avatarFile', blob, `user-${userId}.png`);
+        const result = await axios.post(process.env.REACT_APP_UPLOAD_API, formData);
+        if (result.data) {
+            avatarUrl = `${process.env.REACT_APP_PHOTO_BASE}/${result.data}`;
+            updateResult = await axios.put(`${this.apiUrl}/${userId}`, { avatar: avatarUrl });
+        }
+        return (updateResult.data === 1) ? avatarUrl : '';
+    }
+
+    toBlob(canvas) {
+        return new Promise((resolve, reject) => canvas.toBlob((blob) => resolve(blob)));
+    }
+
     static convert(rawUser) {
         return (columns) => {
             const userId = this.valueFrom(columns)('id')(rawUser);
             const name = this.valueFrom(columns)('username')(rawUser);
             const pwd = this.valueFrom(columns)('password')(rawUser);
+            const role = this.valueFrom(columns)('role')(rawUser);
             const avatar = this.valueFrom(columns)('avatar')(rawUser);
-            return new User(userId, name, pwd, avatar);
+            const firstname = this.valueFrom(columns)('firstname')(rawUser);
+            const lastname = this.valueFrom(columns)('lastname')(rawUser);
+            const email = this.valueFrom(columns)('email')(rawUser);
+            const active = this.valueFrom(columns)('active')(rawUser);
+            const lastActivity = moment(this.valueFrom(columns)('last_login')(rawUser), "YYYY-MM-DD");
+            return new User(userId, name, avatar)
+                .withPassword(pwd, role)
+                .withUserDetails(firstname, lastname, email)
+                .withStatus(active, lastActivity);
         };
     }
 }

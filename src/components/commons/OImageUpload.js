@@ -21,6 +21,16 @@ class OImageUpload extends Component {
         this.setState({ croppedImage: this.refs.cropper.getCroppedCanvas().toDataURL() });
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.container) {
+            this.setState({
+                container: nextProps.container,
+                croppedImage: nextProps.container[nextProps.fieldName],
+                imageUrl: nextProps.container[nextProps.fieldName],
+            });
+        }
+    }
+
     getBase64(img) {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();

@@ -25,8 +25,9 @@ class NormalLoginForm extends React.Component {
                 this.setState({ loading: true });
                 try {
                     const user = await this.crudService.getUser(values.userName);
-                    if (user && this.props.onUpdate && values.userName === user.username && values.password === user.password) {
+                    if (user && this.props.onUpdate && values.userName === user.username && values.password === user.password && user.active === 1) {
                         this.props.onUpdate(user);
+                        this.crudService.updateActivity(user.id);
                         this.setState({ isLogged: true });
                     } else {
                         notification.open({ message: Messages.LOGIN_FAILED, description: Messages.LOGIN_FAILED_DESC });

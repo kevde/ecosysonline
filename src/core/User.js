@@ -1,16 +1,33 @@
 import Goal from './Goal';
 
 class User {
-    constructor(id, username, password, avatar) {
+    constructor(id, username, avatar) {
         this.id = id;
         this.username = username;
-        this.password = password;
         this.avatar = avatar;
-        this.goal = null;
     }
 
     withGoal(goal) {
         this.goal = goal;
+        return this;
+    }
+
+    withPassword(password, role) {
+        this.password = password;
+        this.role = role;
+        return this;
+    }
+
+    withUserDetails(firstname, lastname, email) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        return this;
+    }
+
+    withStatus(active, lastActivity) {
+        this.active = active;
+        this.lastActivity = lastActivity;
         return this;
     }
 }

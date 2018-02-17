@@ -28,11 +28,18 @@ class App extends Component {
                   <Route path="/forecast"  render={(props) => this.redirectWhenLoggedOut() } />
                   <Route path="/revenue"  render={(props) => this.redirectWhenLoggedOut() } />
                   <Route path="/persona"  render={(props) => this.redirectWhenLoggedOut() } />
+                  <Route path="/account"  render={(props) => this.redirectWhenLoggedOut() } />
                   <Route path="/users"  render={(props) => <MainPage user={this.state.user} onUpdate={this.onUpdate.bind(this)} /> } />
+                  <Route path="/logout"  render={(props) => this.renderLogout() } />
                 </Switch>
               </div>
             </Router>
         );
+    }
+
+    renderLogout() {
+        this.setState({ user: null });
+        return (<Redirect to="/" />);
     }
 
     redirectWhenLoggedOut() {

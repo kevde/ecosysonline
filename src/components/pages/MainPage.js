@@ -50,7 +50,6 @@ class MainPage extends Component {
                           <Route exact={true} path="/revenue/:goalId" render={(props) => <MetricForm {...props} metricTitle="Total Revenues"/> } />
                           <Route exact={true} path="/persona/:personaId" render={(props) => <PersonaForm {...props} /> } />
                           <Route exact={true} path="/users/" render={(props) => <UserList {...props} userCrudService={this.userCrudService}/> } />
-                          {this.checkDefaultGoal()}
                         </Content>
                     </Layout>
               </Layout>
@@ -73,7 +72,7 @@ class MainPage extends Component {
     }
 
     checkDefaultGoal() {
-        return _.get(this.state.user, 'goal') ? <Redirect to="/goals" /> : '';
+        return _.get(this.state, 'currentGoalId') ? <Redirect to="/goals" /> : '';
     }
 
     async setDefaultGoal(goal) {

@@ -83,7 +83,7 @@ class MainHeader extends Component {
 
     getPopoverContent() {
         return (
-            <UserMenu/>
+            <UserMenu user={this.props.user}/>
         );
     }
 

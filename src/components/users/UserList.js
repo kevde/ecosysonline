@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
-import { Menu, Icon, Layout, Card, Avatar, Switch, Button, Select } from 'antd';
+import AccountEditModal from 'components/account/AccountEditModal';
+import { Menu, Icon, Layout, Card, Avatar, Switch, Button, Select, Input } from 'antd';
 import ReactTable from "react-table";
 import moment from 'moment';
 import "react-table/react-table.css";
 const { Option } = Select;
 const { Header, Content, Sider } = Layout;
+const InputGroup = Input.Group;
 
 export default class UserList extends Component {
     constructor(props) {
@@ -54,7 +56,7 @@ export default class UserList extends Component {
         return (
             <content>
             <Row>
-                <Col xs={8} md={10}>
+                <Col xs={8} md={9}>
                     <span className="user-list-pagination">
                         Showing {(currentLength > usersLength) ? usersLength : currentLength} of {usersLength}
                     </span>
@@ -66,10 +68,15 @@ export default class UserList extends Component {
                     </Select>
                 </Col>
                 <Col xs={2} md={1}>
+                    <Button className="user-list-account" onClick={this.showAccountEditModal.bind(this)} disabled={this.isNextDisabed()}>
+                        Add User
+                    </Button>  
+                </Col>
+                <Col xs={2} md={2}>
+                 <InputGroup compact>
                     <Button className="user-list-pagination-button prev" onClick={() => this.changePage(-1)} disabled={this.isPrevDisabled()}>Prev</Button>
                     <Button className="user-list-pagination-button next" onClick={() => this.changePage(1)} disabled={this.isNextDisabed()}>Next</Button>
-                </Col>
-                <Col xs={2} md={1}>
+                 </InputGroup>
                 </Col>
             </Row>
             <Row>
@@ -90,6 +97,7 @@ export default class UserList extends Component {
                           style={{height: '70vh'}}
                         />
                     </Card>
+                    <AccountEditModal ref="accountEditModal" />
                 </Col>
             </Row>
             </content>
@@ -108,9 +116,13 @@ export default class UserList extends Component {
         return [clientHeader, lastActivityHeader, totalBalanceHeader, activeStateHeader];
     }
 
+    showAccountEditModal(userId) {
+        this.refs.accountEditModal.showModal(userId);
+    }
+
     renderAvatar(cellInfo) {
         return (
-            <div>
+            <div onClick={() => this.showAccountEditModal(this.state.users[cellInfo.index]['id'])}>
                 <span className="user-avatar">
                     <Avatar src={this.state.users[cellInfo.index]['avatar']} icon="user" />
                 </span>

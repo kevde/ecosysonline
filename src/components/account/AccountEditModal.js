@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import { Modal, Input, Button, notification, Alert } from 'antd';
-import GoalSettingStepBar from 'components/goals/steps/GoalSettingStepBar';
-import MissionStatement from 'components/goals/steps/MissionStatement';
 import MonthRangePicker from 'components/commons/MonthRangePicker';
 import ONumericInput from 'components/commons/ONumericInput';
 import ONumericSlider from 'components/commons/ONumericSlider';
 import OTextField from 'components/commons/OTextField';
+import OImageUpload from 'components/commons/OImageUpload';
+import User from 'core/User';
 import * as Messages from 'constants/Messages';
 import { UserCrudService, MetricsCrudService } from 'utils/CrudService';
 
@@ -15,9 +15,16 @@ class AccountEditModal extends Component {
         super(props);
         this.crudService = new UserCrudService();
         this.state = {
-            goal: props.user,
+            user: props.user,
             visible: false
         };
+    }
+
+    async componentWillMount() {
+        if (this.props.user) {
+            const user = await this.crudService.get(this.props.user.id);
+            this.setState({ user });
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -36,7 +43,7 @@ class AccountEditModal extends Component {
             width="50%"
             footer={null}
             >
-				<OImageUpload container={this.state.user} fieldName="avatar" onSave={this.updatePhoto.bind(this)} folder="account"/>
+                <OImageUpload container={this.state.user} fieldName="avatar" onSave={this.updatePhoto.bind(this)} folder="account"/>
                 <OTextField  
                     container={this.state.user} 
                     fieldName='firstname' 
@@ -57,21 +64,33 @@ class AccountEditModal extends Component {
     }
 
     hideModal() {
-        if (this.state.goal.goalId) {
+        if (this.state.user.id) {
             this.done();
         }
-        this.setState({ visible: false }, () => console.log("closed"));
-        this.refs.stepBar.reset();
+        this.setState({ visible: false });
     }
 
-    showModal(userId) {
-        const user = await this.crudService.getUser(this.props.userId);
-        this.setState({ user, visible: true }, () => console.log("opened"));
+    done() {
+
     }
 
-    onUpdate(goal) {
+
+    async updatePhoto(container, avatarBinary) {
+        return await this.crudService.updatePhoto(this.state.user.id, avatarBinary);
+    }
+
+    async showModal(userId) {
+        if (userId) {
+            const user = await this.crudService.get(userId);
+            this.setState({ user, visible: true });
+        } else {
+            this.setState({ user: new User(), visible: true });
+        }
+    }
+
+    onUpdate(user) {
         if (this.props.onUpdate) {
-            this.props.onUpdate(goal);
+            this.props.onUpdate(user);
         }
     }
 }

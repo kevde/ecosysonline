@@ -101,7 +101,7 @@ class Goal {
     }
 
     get monthCount() {
-        return this.endDate.diff(this.startDate, 'month');
+        return this.endDate.diff(this.startDate, 'month') + 1;
     }
 }
 

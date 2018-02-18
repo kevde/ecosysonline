@@ -10,10 +10,10 @@ const { Header } = Layout;
 
 class MainHeader extends Component {
 
-    state = { menuClicked: false };
+    state = { menuClicked: false, userMenuVisible: false };
 
     render() {
-        const username = _.get(this.props.user,'username');
+        const username = _.get(this.props.user, 'username');
         return (
             <Affix>
                 <Header>
@@ -33,7 +33,7 @@ class MainHeader extends Component {
                         </Col>
                         <Col xs={2}  end="xs">
                             <span className="avatar-box">
-                                <Popover placement="bottomRight" title={username} content={this.getPopoverContent()} trigger="click">
+                                <Popover placement="bottomRight" title={username} ref={(over) => this.popOver = over} content={this.getPopoverContent()} trigger="click" visible={this.state.userMenuVisible} onVisibleChange={this.handleVisibleChange.bind(this)}>
                                     {this.getAvatar()}
                                 </Popover>
                             </span>
@@ -52,7 +52,7 @@ class MainHeader extends Component {
                                 Hi {username}!&nbsp;&nbsp;&nbsp;
                             </span>
                             <span className="avatar-box">
-                                <Popover placement="bottomRight" title={username} content={this.getPopoverContent()} trigger="click">
+                                <Popover placement="bottomRight" title={username} ref={(over) => this.popOver = over} content={this.getPopoverContent()} trigger="click" visible={this.state.userMenuVisible} onVisibleChange={this.handleVisibleChange.bind(this)}>
                                     {this.getAvatar()}
                                 </Popover>
                             </span>
@@ -66,13 +66,12 @@ class MainHeader extends Component {
         );
     }
 
+    handleVisibleChange(userMenuVisible) {
+        this.setState({ userMenuVisible });
+    }
+    
     onMenuClick() {
-        const menuClicked = !this.state.menuClicked;
-        this.setState({ menuClicked });
-        if (this.props.onMenuClick) {
-            this.props.onMenuClick(menuClicked);
-        }
-        return menuClicked;
+        this.setState({ userMenuVisible: false });
     }
 
     onLogout() {
@@ -83,7 +82,7 @@ class MainHeader extends Component {
 
     getPopoverContent() {
         return (
-            <UserMenu user={this.props.user}/>
+            <UserMenu user={this.props.user} onClick={this.onMenuClick.bind(this)}/>
         );
     }
 

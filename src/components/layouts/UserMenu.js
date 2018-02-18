@@ -25,7 +25,7 @@ export default class UserMenu extends Component {
 
     render() {
         return (
-            <Menu mode="vertical">
+            <Menu mode="vertical" onClick={this.props.onClick.bind(this)}>
                 <Menu.Item key="profile-1">
                     <div  onClick={this.openModal.bind(this)}>
                         <Icon type="user" />My Account

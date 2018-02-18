@@ -3,6 +3,7 @@ import OverallStatistics from './OverallStatistics';
 import MetricBarGraph from 'components/forecasts/MetricBarGraph';
 import Titlebar from 'components/layouts/Titlebar';
 import VisitorsChart from './VisitorsChart';
+import MembersList from './MembersList';
 import { Spin } from 'antd';
 import _ from 'lodash';
 import moment from 'moment';
@@ -54,8 +55,11 @@ export default class Dashboard extends Component {
 						<VisitorsChart metrics={this.state.revenues} />
 					</Col>
 					<Col md={7}>
-						<MetricBarGraph metrics={this.state.revenues} />
+						<MetricBarGraph metrics={this.state.revenues} prefix="$"/>
 					</Col>
+                    <Col md={12}>
+                        <MembersList goalId={this.state.goal.id} />
+                    </Col>
 				</Row>
 			</Spin>
         );

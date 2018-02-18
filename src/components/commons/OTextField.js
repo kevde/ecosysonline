@@ -30,6 +30,10 @@ class OTextField extends Component {
         if (this.props.onChange) {
             this.props.onChange(this.value);
         }
+
+        if (this.props.onUpdate) {
+            this.props.onUpdate(this.state.container);
+        }
     }
 
     focus() {

@@ -69,9 +69,9 @@ class AccountCreateModal extends Component {
                         fieldName='password'
                         type="password"
                         rules={[
-                        	{ required: true, message: 'Please input your password' },
-                         	// { pattern: /\d{6, 12}/, message: 'Password should be from 6 to 12 characters only'}
-						]}
+                            { required: true, message: 'Please input your password' },
+                            // { pattern: /\d{6, 12}/, message: 'Password should be from 6 to 12 characters only'}
+                        ]}
                         label='Password'/>
                     )}
                 </Form.Item>
@@ -105,7 +105,10 @@ class AccountCreateModal extends Component {
     }
 
     renderWithValidation(form, reactComponent) {
-        return form.getFieldDecorator(reactComponent.props.fieldName, { rules: reactComponent.props.rules })(reactComponent);
+        return form.getFieldDecorator(reactComponent.props.fieldName, {
+            initialValue: _.get(reactComponent.props.container, reactComponent.props.fieldName),
+            rules: reactComponent.props.rules
+        })(reactComponent);
     }
 
     hideModal() {

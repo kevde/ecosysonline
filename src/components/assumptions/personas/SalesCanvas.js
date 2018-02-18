@@ -18,6 +18,10 @@ class SalesCanvas extends Component {
     }
 
     render() {
+        const trigger = _.get(this.state, 'persona.salesCanvas.trigger');
+        const action = _.get(this.state, 'persona.salesCanvas.action');
+        const conversation = _.get(this.state, 'persona.salesCanvas.conversation');
+        const sell = _.get(this.state, 'persona.salesCanvas.sell');
         return (
             <div>
 	            <Card>
@@ -28,7 +32,7 @@ class SalesCanvas extends Component {
 			                        <h3>Trigger</h3>
 			                    </Col>
 			                    <Col md={12}>
-			                        {this.state.persona.salesCanvas.trigger}
+			                        {trigger}
 			                    </Col>
 			                </Col>
 			                <Col md={3}>
@@ -36,7 +40,7 @@ class SalesCanvas extends Component {
 			                        <h3>Action</h3>
 			                    </Col>
 			                    <Col md={12}>
-			                        {this.state.persona.salesCanvas.action}
+			                        {action}
 			                    </Col>
 		                    </Col>
 			                <Col md={3}>
@@ -44,7 +48,7 @@ class SalesCanvas extends Component {
 			                        <h3>Conversation</h3>
 			                    </Col>
 			                    <Col md={12}>
-			                        {this.state.persona.salesCanvas.conversation}
+			                        {conversation}
 			                    </Col>
 		                    </Col>
 			                <Col md={3}>
@@ -52,7 +56,7 @@ class SalesCanvas extends Component {
 			                        <h3>Sell</h3>
 			                    </Col>
 			                    <Col md={12}>
-			                        {this.state.persona.salesCanvas.sell}
+			                        {sell}
 			                    </Col>
 		                	</Col>
 		                </Row>

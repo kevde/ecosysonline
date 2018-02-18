@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import { Card } from 'antd';
 import OTextArea from 'components/commons/OTextArea';
+import _ from 'lodash';
 
 class CoreProblems extends Component {
 
@@ -18,6 +19,12 @@ class CoreProblems extends Component {
     }
 
     render() {
+        const painPoints0 = _.get(this.state.persona, 'coreProblems.painPoints.0');
+        const painPoints1 = _.get(this.state.persona, 'coreProblems.painPoints.1');
+        const painPoints2 = _.get(this.state.persona, 'coreProblems.painPoints.2');
+        const solutions0 = _.get(this.state.persona, 'coreProblems.solutions.0');
+        const solutions1 = _.get(this.state.persona, 'coreProblems.solutions.1');
+        const solutions2 = _.get(this.state.persona, 'coreProblems.solutions.2');
         return (
             <Card>
             <Col>
@@ -31,7 +38,7 @@ class CoreProblems extends Component {
                 </Row>
                 <Row md={12} start="md">
                     <Col md={6}>
-                         1. {this.state.persona.coreProblems.painPoints[0]}
+                         1. {painPoints0}
                     </Col>
                     <Col md={6}>
                         {
@@ -43,13 +50,13 @@ class CoreProblems extends Component {
                                 size="small"
                                 ref="solution0"
                                 placeholder="Solution..." />
-                            : <div onClick={() => this.toggle('solution0')}>1. {this.state.persona.coreProblems.solutions[0]}</div>
+                            : <div onClick={() => this.toggle('solution0')}>1. {solutions0}</div>
                         }
                     </Col>
                 </Row>
                 <Row md={12} start="md">
                     <Col md={6}>
-                         2. {this.state.persona.coreProblems.painPoints[1]}
+                         2. {painPoints1}
                     </Col>
                     <Col md={6}>
                         {
@@ -61,13 +68,13 @@ class CoreProblems extends Component {
                                 size="small"
                                 ref="solution1"
                                 placeholder="Solution..." />
-                            : <div onClick={() => this.toggle('solution1')}>2. {this.state.persona.coreProblems.solutions[1]}</div>
+                            : <div onClick={() => this.toggle('solution1')}>2. {solutions1}</div>
                         }
                     </Col>
                 </Row>
                 <Row md={12} start="md">
                     <Col md={6}>
-                         3. {this.state.persona.coreProblems.painPoints[2]}
+                         3. {painPoints2}
                     </Col>
                     <Col md={6}>
                         {
@@ -79,7 +86,7 @@ class CoreProblems extends Component {
                                 size="small"
                                 ref="solution2"
                                 placeholder="Solution..." />
-                            : <div onClick={() => this.toggle('solution2')}>3. {this.state.persona.coreProblems.solutions[2]}</div>
+                            : <div onClick={() => this.toggle('solution2')}>3. {solutions2}</div>
                         }
                     </Col>
                 </Row>

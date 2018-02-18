@@ -12,7 +12,7 @@ import LoginForm from 'components/login/LoginForm';
 import RegisterForm from 'components/login/RegisterForm';
 import MonthService from 'components/commons/MonthService';
 import Dashboard from 'components/dashboard/Dashboard';
-import PersonaForm from 'components/assumptions/PersonaForm';
+import PersonaPage from 'components/assumptions/PersonaPage';
 import UserList from 'components/users/UserList';
 import { GoalCrudService, PersonaCrudService, MetricsCrudService, JourneyCrudService, UserCrudService } from 'utils/CrudService';
 import _ from 'lodash';
@@ -36,7 +36,7 @@ class MainPage extends Component {
     }
 
     componentDidMount() {
-        if (!this.state.user.goal) {
+        if (!_.get(this.state, 'user.goal')) {
             this.setState({ goalRedirected: true });
         }
     }
@@ -53,8 +53,8 @@ class MainPage extends Component {
                           <Route exact={true} path="/assumptions/:goalId" render={(props) => <Assumptions {...props} goal={this.state.user.goals} crudService={this.personaCrudService} /> }/>
                           <Route exact={true} path="/journeys/:goalId"  onEnter={this.changeClassName.bind(this)} render={(props) => <ValueJourneyWorksheet {...props} goal={this.state.user.goals} crudService={this.journeyCrudService} /> } />
                           <Route exact={true} path="/forecast/:type/:goalId" render= {() => <MetricForm isEditable={true} /> } />
-                          <Route exact={true} path="/revenue/:goalId" render={(props) => <MetricForm {...props} metricTitle="Total Revenues"/> } />
-                          <Route exact={true} path="/persona/:personaId" render={(props) => <PersonaForm {...props} /> } />
+                          <Route exact={true} path="/revenue/:goalId" render={(props) => <MetricForm {...props} metricTitle="Total Revenues" type="revenues"/> } />
+                          <Route exact={true} path="/persona/:personaId" render={(props) => <PersonaPage {...props} /> } />
                           <Route exact={true} path="/users/" render={(props) => this.renderWithRole('admin', <UserList {...props} currentUser={_.get(this.state, 'user')} userCrudService={this.userCrudService}/>) } />
                         </Content>
                         {(this.state.goalRedirected) ? <Redirect to="/goals" /> : ''}

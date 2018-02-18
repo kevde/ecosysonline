@@ -91,13 +91,13 @@ class MissionStatement extends Component {
 			        	<div>Amount of Visitors</div>
 			        </Col>
 			        <Col md={4}>
-	 					<div>{this.state.goal.totalVisitors} Visitors</div>
+	 					<div>{Number(this.state.goal.totalVisitors).toFixed(0)} Visitors</div>
 			        </Col>
 			        <Col md={4} mdOffset={4}>
 			        	<div>Optin CTR</div>
 			        </Col>
 			        <Col md={4}>
-	 					<div>{this.state.goal.ctr.optin} %</div>
+	 					<div>{Number(this.state.goal.ctr.optin).toFixed(2)} %</div>
 			        </Col>
 		        </Row>
 		        <Row start="md">
@@ -113,13 +113,13 @@ class MissionStatement extends Component {
 			        	<div>Amount of Sales</div>
 			        </Col>
 			        <Col md={4}>
-	 					<div>{this.state.goal.totalSales1}</div>
+	 					<div>{Number(this.state.goal.totalSales1).toFixed(0)}</div>
 			        </Col>
 			        <Col md={4} mdOffset={4}>
 			        	<div>Close Rate</div>
 			        </Col>
 			        <Col md={4}>
-	 					<div>{this.state.goal.ctr.closerate} %</div>
+	 					<div>{Number(this.state.goal.ctr.closerate).toFixed(2)} %</div>
 			        </Col>
 		        </Row>
 		        <Row start="md">
@@ -127,7 +127,7 @@ class MissionStatement extends Component {
 			        	<div>Revenue</div>
 			        </Col>
 			        <Col md={4}>
-	 					<div>€ {this.state.goal.totalRevenues}</div>
+	 					<div>€ {Number(this.state.goal.totalRevenues).toFixed(2)}</div>
 			        </Col>
 		        </Row>
         	</content>

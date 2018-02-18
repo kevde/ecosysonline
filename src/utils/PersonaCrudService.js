@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import axios from 'axios';
-import Persona from 'core/Persona';
+import Persona, { SimplePersona } from 'core/Persona';
 import { MetricValue } from 'core/Metrics';
 import AbstractCrudService from './AbstractCrudService';
 import Promise from 'bluebird';
@@ -17,6 +17,35 @@ export class PersonaCrudService extends AbstractCrudService {
             return true;
         } else {
             // throw new Error(`${personaId} cannot be deleted`);
+        }
+    }
+
+    async get(personaId) {
+        const { data } = await axios.get(`${this.apiUrl}/?filter[]=id,eq,${personaId}&include=core_problems,sales_canvas`);
+        const personas = this.getPersonas(data.personas.records, data.personas.columns);
+        const coreProblems = this.getCoreProblems(data.core_problems.records, data.core_problems.columns);
+        const salesCanvases = this.getSalesCanvas(data.sales_canvas.records, data.sales_canvas.columns);
+
+        const returned = await Promise.map(personas, async(persona) => {
+            const childElements = await this.createOrUpdateChildElements(persona, coreProblems, salesCanvases);
+            return persona.withCoreProblem(childElements.coreProblem).withSalesCanvas(childElements.salesCanvas)
+        });
+
+        return _.head(returned);
+    }
+
+    async getSimplePersonas(goalId) {
+        const { data } = await axios.get(`${this.apiUrl}/?filter[]=goal_id,eq,${goalId}&transform=1&columns=id,avatar,firstname,lastname`);
+        const personas = _.get(data, 'personas');
+
+        console.log(personas);
+        if (!_.isEmpty(personas)) {
+            return personas.map((simplePersona) => {
+                const { id, avatar, firstname, lastname } = simplePersona;
+                return new SimplePersona(id, avatar, firstname, lastname);
+            });
+        } else {
+            return [];
         }
     }
 

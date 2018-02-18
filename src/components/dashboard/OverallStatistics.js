@@ -26,23 +26,23 @@ export default class OverallStatistics extends Component {
 	    	</Col>
 	    	<Col md={12}>
 		    	<div className="stat-box stat-feedbacks">
-		    		<div className="stat-value">{impression}</div>
+		    		<div className="stat-value">{Number(impression).toFixed(0)}</div>
 		    		<div className="stat-description">Impressions</div>
 		    	</div>
 		    	<div className="stat-box stat-profit">
-		    		<div className="stat-value">{trafficCtr} %</div>
+		    		<div className="stat-value">{Number(trafficCtr).toFixed(2)} %</div>
 		    		<div className="stat-description">Traffic Ctr</div>
 		    	</div>
 		    	<div className="stat-box stat-orders">
-		    		<div className="stat-value">{optinCtr} %</div>
+		    		<div className="stat-value">{Number(optinCtr).toFixed(2)} %</div>
 		    		<div className="stat-description">Optin Ctr</div>
 		    	</div>
 		    	<div className="stat-box stat-popularity">
-		    		<div className="stat-value">{closerateCtr} %</div>
+		    		<div className="stat-value">{Number(closerateCtr).toFixed(2)} %</div>
 		    		<div className="stat-description">Close Rate</div>
 		    	</div>
 		    	<div className="stat-box stat-revenue">
-		    		<div className="stat-value">$ {(revenue) ? revenue.getTotalRevenues('goal') : 0}</div>
+		    		<div className="stat-value">$ {Number((revenue) ? revenue.getTotalRevenues('goal') : 0).toFixed(2)}</div>
 		    		<div className="stat-description">Revenue</div>
 		    	</div>
 	    	</Col>

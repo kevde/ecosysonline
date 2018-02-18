@@ -28,7 +28,7 @@ class MetricValue {
     get label() {
         return this.month.format('MMM-YYYY');
     }
- 
+
     createMonthlyMetricValue(months, month) {
         const goal = Number(this.goal ? this.goal / months : 0).toFixed(2);
         const stretch = Number(this.stretch ? this.stretch / months : 0).toFixed(2);
@@ -39,7 +39,7 @@ class MetricValue {
 class RevenueMetricValue {
     constructor(productPrice, month, impression, trafficCtr, optinCtr, closerateCtr) {
         this.productPrice = productPrice;
-        this.month = month; 
+        this.month = month;
         this.impression = impression;
         this.trafficCtr = trafficCtr;
         this.optinCtr = optinCtr;
@@ -75,7 +75,7 @@ class RevenueMetricValue {
     }
 
     getTotalRevenues(valueType) {
-        return Number(this.getTotalSales(valueType) * this.productPrice).toFixed(2);
+        return this.getTotalSales(valueType) * this.productPrice;
     }
 }
 

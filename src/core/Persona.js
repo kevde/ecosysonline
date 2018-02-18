@@ -73,3 +73,16 @@ export default class Persona {
         return this;
     }
 }
+
+export class SimplePersona {
+    constructor(id, avatar, firstName, lastName) {
+        this.id = id;
+        this.avatar = avatar;
+        this.lastName = lastName;
+        this.firstName = firstName;
+    }
+
+    get fullname() {
+        return `${this.firstName} ${this.lastName}`;
+    }
+}

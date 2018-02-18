@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import AccountEditModal from 'components/account/AccountEditModal';
+import OTextField from 'components/commons/OTextField';
 import AccountCreateModal from 'components/account/AccountCreateModal';
-import { Menu, Icon, Layout, Card, Avatar, Switch, Button, Select, Input, Spin } from 'antd';
+import Titlebar from 'components/layouts/Titlebar';
+import { Affix, Menu, Icon, Layout, Card, Avatar, Switch, Button, Select, Input, Spin, Collapse} from 'antd';
 import ReactTable from "react-table";
 import moment from 'moment';
 import "react-table/react-table.css";
@@ -16,6 +18,7 @@ export default class UserList extends Component {
         this.userCrudService = props.userCrudService;
         this.state = {
             currentUser: props.currentUser,
+            filtered: { id: 'fullname', value: "" },
             loading: false,
             page: 0,
             pageSize: 10,
@@ -101,14 +104,21 @@ export default class UserList extends Component {
         this.reloadUserList();
     }
 
+    changeFilter(e) {
+        this.setState({ filtered: e });
+    }
+
     render() {
         const currentLength = (this.state.page + 1) * this.state.pageSize;
         const usersLength = this.state.users.length;
         return (
             <content>
                 <Spin spinning={this.state.loading}>
-                    <Row>
-                        <Col xs={8} md={9}>
+                    <Titlebar title="Users" description="User Management"/>
+                    <Affix>
+                    <Card className="user-list-header">
+                    <Row middle="xs" between="xs">
+                        <Col xs={4} md={7}>
                             <span className="user-list-pagination">
                                 Showing {(currentLength > usersLength) ? usersLength : currentLength} of {usersLength}
                             </span>
@@ -119,18 +129,23 @@ export default class UserList extends Component {
                               <Option value={50}>Show 50</Option>
                             </Select>
                         </Col>
-                        <Col xs={2} md={1}>
+                        <Col xs={8} md={2}>
+                            <OTextField container={this.state.filtered} fieldName="value" placeholder="Search..." onUpdate={this.changeFilter.bind(this)}/>
+                        </Col>
+                        <Col xs={8} md={1}>
                             <Button className="user-list-account" onClick={this.showAccountCreateModal.bind(this)}>
                                 Add User
                             </Button>  
                         </Col>
-                        <Col xs={2} md={2}>
+                        <Col xs={4} md={2}>
                          <InputGroup compact>
                             <Button className="user-list-pagination-button prev" onClick={() => this.changePage(-1)} disabled={this.isPrevDisabled()}>Prev</Button>
                             <Button className="user-list-pagination-button next" onClick={() => this.changePage(1)} disabled={this.isNextDisabed()}>Next</Button>
                          </InputGroup>
                         </Col>
                     </Row>
+                    </Card>
+                    </Affix>
                     <Row>
                         <Col md={12}>
                         </Col>
@@ -144,6 +159,7 @@ export default class UserList extends Component {
                                   data={this.state.users}
                                   columns={this.columns}
                                   page={this.state.page}
+                                  filtered={[this.state.filtered]}
                                   pageSize={this.state.pageSize}
                                   className="user-list"
                                   style={{height: '70vh'}}
@@ -159,7 +175,7 @@ export default class UserList extends Component {
     }
 
     get columns() {
-        const clientHeader = { Header: "Client Name", accessor: "fullname" };
+        const clientHeader = { Header: "Client Name", accessor: "fullname", filterMethod: this.filterFullName.bind(this) };
         const lastActivityHeader = { Header: "Last Activity", accessor: 'lastActivity' };
         const totalBalanceHeader = { Header: "Total Balance", accessor: 'revenue' };
         const activeStateHeader = {};
@@ -168,6 +184,10 @@ export default class UserList extends Component {
         totalBalanceHeader.Cell = this.renderRevenue.bind(this);
         activeStateHeader.Cell = this.renderActive.bind(this);
         return [clientHeader, lastActivityHeader, totalBalanceHeader, activeStateHeader];
+    }
+
+    filterFullName(filter, row) {
+        return new RegExp(`.*${filter.value}.*`, "i").test(row.fullname);
     }
 
     showAccountEditModal(userId) {
@@ -183,14 +203,14 @@ export default class UserList extends Component {
             <div onClick={() => this.showAccountEditModal(this.state.users[cellInfo.index]['id'])}>
                 <Row>
                     <Col xs={1}>
-                <span className="user-avatar">
-                        <Avatar src={this.state.users[cellInfo.index]['avatar']} icon="user" />
-                </span>
+                        <span className="user-avatar">
+                                <Avatar src={this.state.users[cellInfo.index]['avatar']} icon="user" />
+                        </span>
                     </Col>
                     <Col xs={11}>
-                <span className="user-fullname">
-                        {this.state.users[cellInfo.index]['fullname']}
-                </span>
+                        <span className="user-fullname">
+                                {this.state.users[cellInfo.index]['fullname']}
+                        </span>
                     </Col>
                 </Row>
 

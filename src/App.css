@@ -97,6 +97,10 @@
     width: 100%;
 }
 
+.avatar-box {
+    margin: 10px;
+}
+
 .avatar-photo {
     border: 1px dashed #d9d9d9;
     border-radius: 100%;
@@ -137,11 +141,6 @@
     display: none !important;
 }
 
-
-.content .row {
-    margin: 1rem auto;
-}
-
 .display-initial>div {
     display: initial;
 }
@@ -162,17 +161,29 @@
     margin: 5rem auto;
 }
 
+.member-fullname {
+    color: #aaa;
+}
+
+.member-fullname-container {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    align-content: center;
+    justify-content: center;
+}
+
 .persona {
     margin: 2rem auto;
+}
+
+.persona-form {
+    margin: 3rem auto;
 }
 
 .persona-location input {
     border: 1px solid #d9d9d9;
     border-radius: 4px;
-}
-
-.row .ant-card {
-    min-height: 100%;
 }
 
 .stat-header {
@@ -249,6 +260,10 @@ blockquote:before {
 
 blockquote p {
     display: inline;
+}
+
+.ant-card {
+    margin: 10px 10px;
 }
 
 .ant-card-body {
@@ -424,6 +439,10 @@ i.anticon {
 
 
 
+
+
+
+
 /*
 .content [class^="col-"] {
     margin-top: 1rem;
@@ -554,6 +573,19 @@ img.main-logo {
     border: none;
 }
 
+.user-list-header {
+    margin: auto;
+    background: none;
+    border: none;
+}
+
+.user-list-pagination {
+    margin: auto 20px;
+}
+
+
+
+
 
 
 
@@ -564,6 +596,10 @@ img.main-logo {
         display: inline-block;
         text-align: right;
         vertical-align: middle;
+    }
+
+    .content-header-title {
+        padding: 10px;
     }
 
     .journey-card {
@@ -622,14 +658,19 @@ img.main-logo {
         padding-top: 2rem;
     }
 
-    .content-header-title {
-        padding: 10px;
+    .members-list-container.row {
+        max-height: 30vh;
+        overflow: auto;
     }
-
     .user-list .rt-tr-group {
         margin: auto 1rem;
     }
 }
+
+
+
+
+
 /*xs*/
 
 @media only screen and (max-width: 768px) {
@@ -651,6 +692,14 @@ img.main-logo {
     .ant-layout-header {
         padding: 0;
         background: #1c2b36;
+    }
+
+    .content-header-title {
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(80%, #fff), to(rgba(255, 255, 255, 0)));
+        background: -webkit-linear-gradient(top, #fff 80%, rgba(255, 255, 255, 0));
+        background: -o-linear-gradient(top, #fff 80%, rgba(255, 255, 255, 0));
+        background: linear-gradient(180deg, #fff 80%, rgba(255, 255, 255, 0));
+        padding: 10px;
     }
 
     .journey-card {
@@ -711,14 +760,10 @@ img.main-logo {
         padding-top: 1.5rem;
     }
 
-    .content-header-title {
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(80%, #fff), to(rgba(255, 255, 255, 0)));
-        background: -webkit-linear-gradient(top, #fff 80%, rgba(255, 255, 255, 0));
-        background: -o-linear-gradient(top, #fff 80%, rgba(255, 255, 255, 0));
-        background: linear-gradient(180deg, #fff 80%, rgba(255, 255, 255, 0));
-        padding: 10px;
+    .members-list-container {
+        max-height: 50vh;
+        overflow: auto;
     }
-
     .stat-box {
         width: calc(50% - 1rem);
     }

@@ -134,7 +134,10 @@ class AccountEditModal extends Component {
     }
 
     renderWithValidation(form, reactComponent) {
-        return form.getFieldDecorator(reactComponent.props.fieldName, { rules: reactComponent.props.rules })(reactComponent);
+        return form.getFieldDecorator(reactComponent.props.fieldName, {
+            initialValue: _.get(reactComponent.props.container, reactComponent.props.fieldName),
+            rules: reactComponent.props.rules
+        })(reactComponent);
     }
 
     hideModal() {

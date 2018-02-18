@@ -14,20 +14,21 @@ class PersonaForm extends Component {
         this.crudService = new PersonaCrudService();
         this.state = {
             persona: props.persona,
-            isAvatarOpened: false
+            isAvatarOpened: false,
+            deleteDisabled: false
         };
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ persona: nextProps.persona });
+        this.setState({ persona: nextProps.persona, deleteDisabled: nextProps.deleteDisabled });
     }
 
     render() {
         return (
-            <Col>
+            <Col className="persona-form" id={`persona-form-${_.get(this.state, 'persona.id')}`}>
                 <Row>
                     <Col md={2} className="display-initial">
-                        <ProfileCard persona={this.state.persona} onUpdate={this.onUpdate.bind(this)} onDelete={(persona) => this.props.onDelete(persona.id)}/>              
+                        <ProfileCard persona={this.state.persona} deleteDisabled={this.state.deleteDisabled} onUpdate={this.onUpdate.bind(this)} onDelete={(persona) => this.props.onDelete(persona.id)}/>              
                     </Col>
                     <Col md={10}>
                         <Row>
@@ -45,8 +46,9 @@ class PersonaForm extends Component {
     }
 
     showAvatarModal() {
-        console.log(this.state.persona)
-        this.refs.personaModal.showModal();
+        if (this.state.persona) {
+            this.refs.personaModal.showModal();
+        }
     }
 
     reRender() {

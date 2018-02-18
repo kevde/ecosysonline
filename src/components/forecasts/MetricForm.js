@@ -20,6 +20,14 @@ const metricsMap = {
     [Messages.CLOSE_RATE]: Messages.CLOSE_RATE_TITLE,
 }
 
+const fixesMap = {
+    [Messages.REVENUES]: { prefix: '$', suffix: '', sum: 'sum' },
+    [Messages.IMPRESSIONS]: { prefix: '', suffix: ' Impressions', sum: 'sum' },
+    [Messages.TRAFFIC]: { prefix: '', suffix: '%', sum: 'mean' },
+    [Messages.OPTIN]: { prefix: '', suffix: '%', sum: 'mean' },
+    [Messages.CLOSE_RATE]: { prefix: '', suffix: '%', sum: 'mean' },
+}
+
 
 class MetricForm extends Component {
     constructor(props) {
@@ -33,7 +41,8 @@ class MetricForm extends Component {
             metrics: [],
             quarterlyMetrics: [],
             goals: props.goals,
-            visible: true
+            visible: true,
+            type: props.type || props.match.params.type
         }
     }
 
@@ -47,8 +56,7 @@ class MetricForm extends Component {
 
     async updateMetrics(goalId, type) {
         let metrics = [];
-        let quarterlyMetrics = []
-        ''
+        let quarterlyMetrics = [];
         let metricTitle = metricsMap[type] || this.props.metricTitle;
         if (type) {
             metrics = await this.crudService.listByGoalIdAndType(goalId, type);
@@ -58,7 +66,7 @@ class MetricForm extends Component {
         }
 
         quarterlyMetrics = MonthService.getQuarterlyMetricValues(metrics);
-        this.setState({ metrics, quarterlyMetrics, loading: false, metricTitle });
+        this.setState({ metrics, quarterlyMetrics, loading: false, metricTitle, type: type || this.props.type });
     }
 
     render() {
@@ -79,7 +87,7 @@ class MetricForm extends Component {
                 </MediaQuery>
                 <Row>
                     <Col md={12}>
-                        <MetricBarGraph metrics={metrics} ref="metricBarGraph"/>
+                        <MetricBarGraph metrics={metrics} ref="metricBarGraph" {...fixesMap[this.state.type]}/>
                     </Col>
                 </Row>
                 <Row>

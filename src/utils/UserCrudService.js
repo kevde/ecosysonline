@@ -12,7 +12,7 @@ export class UserCrudService extends AbstractCrudService {
 
     async create(user) {
         const { data } = await axios.post(this.apiUrl, user);
-        return data;
+        return (data) ? _.set(user, 'id', data) : null;
     }
 
     async get(id) {

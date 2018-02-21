@@ -15,12 +15,12 @@ class RegistrationForm extends React.Component {
                 this.setState({ loading: true });
                 const user = new User(null, values.username).withPassword(values.password);
                 try {
-                    const { data } = await this.crudService.create(user);
-                    if (data) {
-                        notification.open({ message: `Welcome ${user.username}!`, description: `An account has been created for you` });
+                    const createdUser = await this.crudService.create(user);
+                    if (createdUser) {
+                        notification.open({ message: `Welcome ${createdUser.username}!`, description: `An account has been created for you` });
                         this.setState({ isLogged: true });
                         if (this.props.onUpdate) {
-                            this.props.onUpdate(user);
+                            this.props.onUpdate(createdUser);
                         }
                     } else {
                         notification.open({ message: Messages.ERROR, description: Messages.REGISTER_ERROR });

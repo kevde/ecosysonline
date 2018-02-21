@@ -6,32 +6,6 @@ import * as Messages from 'constants/Messages';
 import { Form, Input, Tooltip, Icon, Cascader, Select, Checkbox, Button, AutoComplete, Spin, notification } from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
-const AutoCompleteOption = AutoComplete.Option;
-
-const residences = [{
-    value: 'zhejiang',
-    label: 'Zhejiang',
-    children: [{
-        value: 'hangzhou',
-        label: 'Hangzhou',
-        children: [{
-            value: 'xihu',
-            label: 'West Lake',
-        }],
-    }],
-}, {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [{
-        value: 'nanjing',
-        label: 'Nanjing',
-        children: [{
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
-        }],
-    }],
-}];
-
 class RegistrationForm extends React.Component {
 
     async handleSubmit(e) {
@@ -39,7 +13,7 @@ class RegistrationForm extends React.Component {
         this.props.form.validateFieldsAndScroll(async(err, values) => {
             if (!err) {
                 this.setState({ loading: true });
-                const user = new User(null, values.username, values.password);
+                const user = new User(null, values.username).withPassword(values.password);
                 try {
                     const { data } = await this.crudService.create(user);
                     if (data) {

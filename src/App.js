@@ -10,7 +10,7 @@ class App extends Component {
 
     constructor(props) {
         super(props);
-        this.basename = '/';
+        this.basename = process.env.PUBLIC_URL;
     }
 
     state = { user: null, collapsed: true }

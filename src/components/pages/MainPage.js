@@ -41,6 +41,12 @@ class MainPage extends Component {
         }
     }
 
+    componentWillMount() {
+        if (!_.get(this.state, 'user.goal')) {
+            this.setState({ goalRedirected: true });
+        }
+    }
+
     render() {
         return (
             <Layout>
@@ -48,7 +54,7 @@ class MainPage extends Component {
                     <Layout>
                         <MainHeader ref="mainHeader" user={this.state.user} onLogout={this.onLogout.bind(this)} onMenuClick={this.onMenuClick.bind(this)}/>
                         <Content className="content">
-                          <Route exact={true} path="/" render={(props) => <Dashboard goal={this.state.user.goal} goalCrudService={this.goalCrudService} metricsCrudService={this.metricsCrudService}  /> } />
+                          <Route exact={true} path="/" render={(props) => (this.state.goalRedirected) ? <Redirect to="/goals" /> : <Dashboard goal={this.state.user.goal} goalCrudService={this.goalCrudService} metricsCrudService={this.metricsCrudService}  /> } />
                           <Route exact={true} path="/goals"  render={(props) => <GoalList {...props} user={this.state.user} crudService={this.goalCrudService} goalId={this.state.currentGoalId} onUpdate={(goal) => this.setDefaultGoal(goal)} />} />
                           <Route exact={true} path="/assumptions/:goalId" render={(props) => <Assumptions {...props} goal={this.state.user.goals} crudService={this.personaCrudService} /> }/>
                           <Route exact={true} path="/journeys/:goalId"  onEnter={this.changeClassName.bind(this)} render={(props) => <ValueJourneyWorksheet {...props} goal={this.state.user.goals} crudService={this.journeyCrudService} /> } />
@@ -57,7 +63,6 @@ class MainPage extends Component {
                           <Route exact={true} path="/persona/:personaId" render={(props) => <PersonaPage {...props} /> } />
                           <Route exact={true} path="/users/" render={(props) => this.renderWithRole('admin', <UserList {...props} currentUser={_.get(this.state, 'user')} userCrudService={this.userCrudService}/>) } />
                         </Content>
-                        {(this.state.goalRedirected) ? <Redirect to="/goals" /> : ''}
                     </Layout>
               </Layout>
         );

@@ -40,7 +40,7 @@ export default class Dashboard extends Component {
     }
 
     getNearestRevenue() {
-        return _.minBy(this.state.revenues, (metric) => metric.month.diff(moment()));
+        return _.minBy(this.state.revenues, (metric) => Math.abs(metric.month.diff(moment())));
     }
 
     render() {
